@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productos xmlns="http://example.com/productos">
+    <producto th:each="producto : ${productos.productos}" 
+    xmlns:th="http://www.thymeleaf.org">
+        <nombre th:text="${producto.nombre}"/>
+        <categoria th:text="${producto.categoria}"/>
+        <ingredientes th:text="${producto.ingredientes}"/>
+        <image th:text="${producto.image}"/>
+        <precio th:text="${producto.precio}"/>
+        <stock th:text="${producto.stock}"/>
+    </producto>
+</productos>

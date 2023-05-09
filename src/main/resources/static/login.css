@@ -1,0 +1,101 @@
+.divider>p {
+	opacity: 0.8;
+}
+
+.divider:after, .divider:before {
+	opacity: 0.6;
+	color: 868686ff;
+	content: "";
+	flex: 1;
+	height: 2px;
+	background: #fa530cff;
+}
+
+.divider>p:hover {
+	opacity: 0.7;
+}
+
+.h-custom {
+	min-height: calc(100vh - 80px);
+	margin-bottom: 80px;
+	flex-grow: 1;
+}
+
+.hubobutton {
+	background-color: #5ddb02ff; /* Green */
+	color: white;
+	padding: 15px 42px;
+	text-align: center;
+	font-size: 60 px;
+	display: inline-block;
+	font-weight: 500;
+	text-shadow: 2px 2px 3px #868686ff;
+}
+
+.burgerbutton {
+	background-color: #fa530cff; /* orange */
+	color: white;
+	padding: 15px 20px;
+	text-align: center;
+	font-size: 22 px;
+	display: inline-block;
+	font-weight: 500;
+	text-shadow: 2px 2px 3px #868686ff;
+}
+
+.greybutton {
+	background-color: #868686ff; /* grey */
+	color: white;
+	padding: 15px 42px;
+	text-align: center;
+	font-weight: 600;
+	display: inline-block;
+}
+
+.burgerbutton:hover {
+	background-color: #868686ff; /* grey */
+	color: white;
+	padding: 15px 20px;
+	text-align: center;
+	font-weight: 600;
+	display: inline-block;
+}
+
+.hubobutton:hover {
+	background-color: #868686ff; /* grey */
+	color: white;
+	padding: 15px 42px;
+	text-align: center;
+	font-weight: 600;
+	display: inline-block;
+}
+
+.ppp0 {
+	padding: 10px 0px 10px 0px;
+}
+
+body {
+	background-image: url('images/fondomain.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 80px;
+	background-color: #868686ff;
+	color: #fff;
+	padding: 20px;
+}
+
+.footer-info {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 5px;
+}

@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+C:\Users\carlo\Desktop\AD Desktop\BURGUER\OFFICIAL\hbweb\OFFICIAL\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1503935724.index
+409701224.index
+925062803.index
+569353309.index
+1182774376.index

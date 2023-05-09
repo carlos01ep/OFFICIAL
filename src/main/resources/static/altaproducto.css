@@ -1,0 +1,117 @@
+input[type="radio"] {
+	border: 4px solid #868686ff;
+	box-shadow: inset -16px 0px 1px #868686ff;
+	height: 25px;
+	width: 45px;
+	background-color: #fa530cff;
+	opacity: 1;
+	margin:  0px;
+}
+
+input[type="radio"]:Hover {
+	border: 4px solid #868686ff;
+	box-shadow: inset 16px 0px 1px #868686ff;
+	height: 25px;
+	width: 45px;
+	background-color: #5ddb02ff;
+	opacity: 0.8;
+}
+
+input[type="radio"]:focus, input[type="radio"]:checked {
+	border: 4px solid #868686ff;
+	box-shadow: inset 16px 0px 1px #868686ff;
+	height: 25px;
+	width: 45px;
+	background-color: #5ddb02ff;
+	opacity: 1;
+}
+
+/*transición de checked a not checked y viceversa con la pseudoclase active*/
+input[type="checkbox"]:checked:active {
+	border: 4px solid #868686ff;
+	box-shadow: inset 0px 0px 1px #868686ff;
+	height: 25px;
+	width: 45px;
+	background-color: white;
+	opacity: 0.9;
+}
+
+input[type="checkbox"]:not(:checked):active {
+	border: 4px solid #868686ff;
+	box-shadow: inset 0px 0px 1px #868686ff;
+	height: 25px;
+	width: 45px;
+	background-color: white;
+	opacity: 0.9;
+}
+
+input[type="checkbox"] {
+	border: 4px solid #868686ff;
+	box-shadow: inset 0px 0px 1px #868686ff;
+	height: 25px;
+	width: 45px;
+	background-color: #fa530cff;
+	opacity: 1;
+	margin: 0px 20px 0px 0px;
+}
+
+input[type="checkbox"]:hover {
+	border: 4px solid #868686ff;
+	box-shadow: inset 0px 0px 5px transparent;
+	height: 25px;
+	width: 45px;
+	opacity: 1;
+}
+
+input[type="checkbox"]:checked {
+	border: 4px solid #868686ff;
+	box-shadow: inset 0px 0px 1px #868686ff;
+	height: 25px;
+	width: 45px;
+	background-color: #5ddb02ff;
+	opacity: 1;
+}
+
+.pruebas {
+	box-shadow: inset 0px 0px 20px #ccc;
+	height: 200px;
+	width: 200px;
+	background-color: #5ddb02ff;
+}
+/*forma cuadrada*/
+.square-radio {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 2px solid #bbb;
+	border-radius: 3px;
+	outline: none;
+	background-color: #fff;
+	transition: all 0.4s;
+}
+/*Contenido del checkbox*/
+/* Estilos para el label cuando el checkbox está marcado */
+input[type="checkbox"]:checked+label[for="checkbox_stock"]::before {
+	content: "Disponible";
+}
+
+label[for="checkbox_stock"]::before {
+	content: "No disponible";
+}
+
+.jumbotron {
+	background-color: rgba(255, 255, 255, 0.3);
+	border: 0px solid white; /* Establece el borde deseado */
+	border-radius: 10px;
+	padding: 0px; /* Establece el relleno deseado */
+	margin: 20px 20px 20px 20px;
+}
+
+.jumbotron h1 {
+
+	text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0
+		white, 2px 2px 0 white;
+	color: rgba(93, 219, 2, 0.9);
+}
+
+

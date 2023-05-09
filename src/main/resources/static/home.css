@@ -1,0 +1,174 @@
+
+.user-margen-derecho{
+	margin: 0px 30px 0px 0px;
+}
+.img-main {
+	opacity: 0.8;
+	width: 80px;
+	margin: 0px 20px 0px 0px;
+	padding: 5px;
+}
+.img-table {
+	margin:0px;
+	opacity: 1;
+	width: 78px;
+	margin: 0px;
+	padding: 2px;
+}
+.text-right {
+  text-align: right;
+}
+.img-list {
+	margin:0px;
+	opacity: 0.8;
+	width: 30px;
+	margin: 0px;
+	padding: 0px;
+}
+.img-home-main{
+	margin:0px;
+	opacity: 1;
+	width: 300px;
+	margin: 0px;
+	padding: 5px;
+}
+
+img:hover {
+	/*box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);*/
+	opacity: 1;
+}
+
+divider-grey {
+	border-color: grey;
+}
+
+
+main {
+	background-image: url('images/fondomain.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.jumbotron {
+	background-color: rgba(255, 255, 255, 0.3);
+	border: 0px solid #ccc; /* Establece el borde deseado */
+	border-radius:10px;
+	padding: 10px; /* Establece el relleno deseado */
+	margin: 20px;
+}
+.jumbotron h1 {
+	text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0
+		white, 2px 2px 0 white;
+	color: rgba(93, 219, 2, 0.9);
+}
+
+/*Botones*/
+.hubobutton {
+	background-color: #5ddb02ff; /* Green */
+	color: white;
+	padding: 15px 42px;
+	text-align: center;
+	font-size: 60 px;
+	display: inline-block;
+	font-weight: 500;
+	text-shadow: 2px 2px 3px #868686ff;
+}
+.hubobutton:hover {
+	background-color: #868686ff; /* grey */
+	color: white;
+	padding: 15px 42px;
+	text-align: center;
+	font-weight: 600;
+	display: inline-block;
+}
+.row {
+  text-align: center;
+}
+/*imagenes*/
+.img-opciones-main{
+	opacity: 1;
+	width: 250px;
+
+	padding: 15px;
+	
+}
+
+/*footer*/
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  margin-top: auto;
+}
+
+footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer li {
+  margin: 0 10px;
+}
+
+footer a {
+  color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+  footer {
+    padding: 10px;
+  }
+  
+  footer li {
+    margin: 5px;
+  }
+  
+  footer p {
+    font-size: 14px;
+  }
+  table {
+  font-size: 14px;}
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  footer li {
+    margin: 10px;
+  }
+  
+  footer p {
+    font-size: 16px;
+  }
+  table {
+  font-size: 18px;}
+}
+
+@media screen and (min-width: 1024px) {
+  footer li {
+    margin: 15px;
+  }
+  
+  footer p {
+    font-size: 22px;
+  }
+  
+}

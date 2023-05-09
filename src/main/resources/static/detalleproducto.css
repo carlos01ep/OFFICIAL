@@ -1,0 +1,42 @@
+
+.btn-hubobutton {
+
+	
+	background-color: #5ddb02ff; /* orange */
+	color: white;
+	padding: 15px 20px;
+	text-align: center;
+	font-size: 60 px;
+	display: inline-block;
+	font-weight: 500;
+	text-shadow: 2px 2px 3px #868686ff;
+}
+
+.btn-burgerbutton {
+	background-color: #fa530cff; /* orange */
+	color: white;
+	padding: 15px 20px;
+	text-align: center;
+	font-size: 60 px;
+	display: inline-block;
+	font-weight: 500;
+	text-shadow: 2px 2px 3px #868686ff;
+}
+
+.btn-hubobutton:hover {
+	background-color: #868686ff; /* grey */
+	color: white;
+	padding: 15px 20px;
+	text-align: center;
+	font-weight: 600;
+	display: inline-block;
+}
+
+.btn-burgerbutton:hover {
+	background-color: #868686ff; /* grey */
+	color: white;
+	padding: 15px 20px;
+	text-align: center;
+	font-weight: 600;
+	display: inline-block;
+}

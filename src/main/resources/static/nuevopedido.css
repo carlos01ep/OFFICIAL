@@ -1,0 +1,62 @@
+input[type="checkbox"]:checked:active {
+	border: 8px solid #868686ff;
+	box-shadow: inset 0px 0px 1px #868686ff;
+	height: 55px;
+	width: 85px;
+	background-color: white;
+	opacity: 0.9;
+}
+
+input[type="checkbox"]:not(:checked):active {
+	border: 8px solid #868686ff;
+	box-shadow: inset 0px 0px 1px #868686ff;
+	height: 55px;
+	width: 85px;
+	background-color: white;
+	opacity: 0.9;
+}
+
+input[type="checkbox"] {
+	border: 8px solid #868686ff;
+	box-shadow: inset 0px 0px 1px #868686ff;
+	height: 55px;
+	width: 85px;
+	background-color: #fa530cff;
+	opacity: 1;
+	margin: 0px 20px 0px 0px;
+}
+
+input[type="checkbox"]:hover {
+	border: 8px solid #868686ff;
+	box-shadow: inset 0px 0px 5px transparent;
+	height: 55px;
+	width: 85px;
+	opacity: 1;
+}
+
+input[type="checkbox"]:checked {
+	border: 8px solid #868686ff;
+	box-shadow: inset 0px 0px 1px #868686ff;
+	height: 55px;
+	width: 85px;
+	background-color: #5ddb02ff;
+	opacity: 1;
+}
+
+.size-text-nombre-producto {
+	font-size: 10px;
+}
+
+.bg-img {
+	background-image: url('/images/pedido.png');
+	background-size: 100px 100px;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 120px;
+}
+
+#detalle-pedido-cantidad{
+	color: white;
+	font-size: 36px;
+	text-shadow: 2px 2px 2px #2E2725;
+}

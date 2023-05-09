@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kb-project>
+ <depends-on-projects/>
+ <used-by-projects/>
+ <paths>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/hibernate-commons-annotations-6.0.2.Final.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/javax.activation-api-1.2.0.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jaxb-core-2.3.0.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-jdbc-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-data-jpa-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-data-jpa-3.0.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-jcl-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/mysql-connector-j-8.0.32.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/angus-activation-1.0.0.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/snakeyaml-1.33.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-jdbc-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jakarta.annotation-api-2.1.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jaxb-api-2.3.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jboss-logging-3.5.0.Final.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jackson-annotations-2.14.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jakarta.persistence-api-3.1.0.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-tx-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jaxb-core-4.0.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/h2-2.1.214.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-data-commons-3.0.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/slf4j-api-2.0.6.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/unbescape-1.1.6.RELEASE.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/aspectjweaver-1.9.19.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-session-core-3.0.0.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/attoparser-2.0.6.RELEASE.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jakarta.activation-api-2.1.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/micrometer-commons-1.10.3.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-aop-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/HikariCP-5.0.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-thymeleaf-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jakarta.validation-api-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jandex-2.4.2.Final.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/micrometer-observation-1.10.3.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/tomcat-embed-websocket-10.1.5.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/log4j-api-2.19.0.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/antlr4-runtime-4.10.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-devtools-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-orm-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jakarta.transaction-api-2.0.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jakarta.inject-api-2.0.0.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jakarta.xml.bind-api-4.0.0.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/org.eclipse.persistence.core-2.7.7.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/tomcat-embed-el-10.1.5.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/tomcat-embed-core-10.1.5.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jaxb-runtime-4.0.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/org.eclipse.persistence.asm-2.7.7.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/logback-classic-1.4.5.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.26.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-tomcat-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-webmvc-6.0.4.jar">
+   <libraries>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-spring-webmvc-6.0.4.jar/meta-inf/spring-form.tld" project="hbweb2"/>
+    </library>
+    <library class="tld">
+     <id class="model-object"
+      path="FileSystems/lib-spring-webmvc-6.0.4.jar/meta-inf/spring.tld" project="hbweb2"/>
+    </library>
+   </libraries>
+  </path>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/thymeleaf-spring6-3.1.1.RELEASE.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/org.eclipse.persistence.moxy-2.7.7.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-aspects-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/txw2-4.0.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/classmate-1.5.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jul-to-slf4j-2.0.6.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jackson-databind-2.14.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jackson-datatype-jdk8-2.14.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-beans-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/hibernate-core-6.1.6.Final.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-web-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-autoconfigure-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-json-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-expression-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/thymeleaf-3.1.1.RELEASE.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-core-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/istack-commons-runtime-4.1.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jackson-core-2.14.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/log4j-to-slf4j-2.19.0.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/logback-core-1.4.5.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-validation-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-context-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-web-6.0.4.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jaxb-impl-2.3.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/byte-buddy-1.12.22.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jackson-module-parameter-names-2.14.1.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/hibernate-validator-8.0.0.Final.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-aop-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/spring-boot-starter-logging-3.0.2.jar"/>
+  <path value="C:/Users/carlo/Documents/GitHub/DI_DAM2/hbwebrepos/hbweb/hbweb2/src/main/webapp/WEB-INF/lib/jackson-datatype-jsr310-2.14.1.jar"/>
+ </paths>
+ <validation>
+  <el>
+   <linked-el length="23" name="%0" offset="267" path="%1"/>
+   <linked-el length="19" name="%2" offset="471" path="%1"/>
+   <linked-el length="19" name="%3" offset="377" path="%1"/>
+   <linked-el length="42" name="%4" offset="112" path="%1"/>
+   <linked-el length="26" name="%5" offset="324" path="%1"/>
+   <linked-el length="19" name="%5" offset="471" path="%1"/>
+   <linked-el length="20" name="%5" offset="216" path="%1"/>
+   <linked-el length="20" name="%5" offset="424" path="%1"/>
+   <linked-el length="19" name="%5" offset="377" path="%1"/>
+   <linked-el length="23" name="%5" offset="267" path="%1"/>
+   <linked-el length="42" name="%6" offset="112" path="%1"/>
+   <linked-el length="20" name="%7" offset="216" path="%1"/>
+   <linked-el length="26" name="%8" offset="324" path="%1"/>
+   <linked-el length="20" name="%9" offset="424" path="%1"/>
+  </el>
+ </validation>
+ <aliases>
+  <alias path="producto.categoria" value="%0"/>
+  <alias path="/hbweb2/src/main/webapp/templates/productos.xml" value="%1"/>
+  <alias path="producto.stock" value="%2"/>
+  <alias path="producto.image" value="%3"/>
+  <alias path="productos.productos" value="%4"/>
+  <alias path="producto" value="%5"/>
+  <alias path="productos" value="%6"/>
+  <alias path="producto.nombre" value="%7"/>
+  <alias path="producto.ingredientes" value="%8"/>
+  <alias path="producto.precio" value="%9"/>
+ </aliases>
+ <includes/>
+ <uris/>
+</kb-project>

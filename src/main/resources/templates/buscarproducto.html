@@ -1,0 +1,161 @@
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<title>Inicio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css"
+	integrity="sha512-wVwn1f4X1m0h4Y49m32jKZl2zAF6Bk3qBzK6GgJnR+R6Eg7pUZi6lJgV5kkSdRRn7wJrk5M5h5p4X4CO4aHY4Q=="
+	crossorigin="anonymous" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://icons.getbootstrap.com/">
+
+<link rel="stylesheet" th:href="@{/login.css}" />
+<link rel="stylesheet" th:href="@{/home.css}" />
+<link rel="stylesheet" th:href="@{/altaproducto.css}" />
+
+</head>
+<body>
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<img src="/images/logomain.png" class="img img-main" alt="logo" /> <a
+				class="navbar-brand" th:href="@{/homeadmin}">Hubo Burger</a>
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse p-1">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false" th:if="${session.rol_usuario} == 'admin'">
+							Productos </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" th:href="@{/altaproducto}">Alta</a></li>
+							<li><a class="dropdown-item" th:href="@{/listaproducto}">Lista</a></li>
+							<li><a class="dropdown-item" th:href="@{/buscarproducto}">Buscar</a></li>
+							<li><a class="dropdown-item"
+								th:href="@{altaproductoxml}">Alta con XML</a></li>
+						</ul></li>
+					<li class="nav-item" th:if="${session.rol_usuario} == 'admin'"><a class="nav-link"
+						th:href="@{/listausuario}">Lista de Usuarios</a></li>
+					<li class="nav-item" th:if="${session.rol_usuario} == 'admin'"><a class="nav-link"
+						th:href="@{/listapedido}">Lista de Pedidos</a></li>
+					<li class="nav-item" th:if="${session.rol_usuario} == 'usuario'"><a
+						class="nav-link" th:href="@{/nuevopedido}">Nuevo Pedido</a></li>
+					<li class="nav-item" th:if="${session.rol_usuario} == 'usuario'"><a
+						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
+				</ul>
+				<ul class="navbar-nav justify-content-center align-items-center">
+					<li class="nav-item"><a class="nav-link active justify-content-center align-items-center user-margen-derecho"
+						aria-current="page" href="#" th:text=${session.usuario_name}>User
+							Name</a></li>
+					<li class="nav-item">
+					 <a class="my-0" th:href="@{/logout}"><button class="btn burgerbutton ">CERRAR SESIÓN</button></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<main role="main">
+
+		<section class="vh-100 ">
+			<div class="jumbotron">
+				<div
+					class="container my-4 d-flex justify-content-center align-items-center">
+					<h1 class="display-6 fw-bold">BÚSQUEDA DE PRODUCTO</h1>
+				</div>
+
+			</div>
+			<form action="#" th:action="@{/buscarproducto}"
+				th:object="${buscarProducto}" method="post">
+				
+				<div class="container-fluid h-custom mb-0">
+					<div class="row d-flex justify-content-center align-items-center">
+						<!-- image -->
+						<div class="col-md-5 col-lg-5 col-xl-5 mx-0">
+
+							<img src="/images/hbop3.png" class="img-fluid" alt="busqueda" />
+
+														
+
+
+						</div>
+
+						<div class="col-md-6 col-lg-6 col-xl-6 offset-xl-1 bg-light mx-4">
+
+
+							<div class="divider d-flex align-items-center justify-content-center my-4">
+								<p class="text-center fw-bold mx-3 mb-0  ">BÚSQUEDA POR NOMBRE Y CATEGORÍA</p>
+							</div>
+
+							<div class="row mb-3 ">
+
+								<div class=" col-6 ">
+									<input type="text" th:field="*{nombre}" class="form-control"
+										placeholder="Nombre" th:name="*{nombre}"/>
+								</div>
+								<div class=" col-6 ">
+									<select class="form-select text-muted" id="categoria"
+										name="categoria" required="required" placeholder="categoría">
+										<option disabled selected>Categoría</option>
+										<option th:value="Hamburguesa" th:text="Hamburguesa" >Hamburguesa</option>
+										<option th:value="Bebida" th:text="Bebida" >Bebida</option>
+										<option th:value="Complemento" th:text="Complemento" >Complemento</option>
+										<option th:value="Salsa" th:text="Salsa" >Salsa</option>
+										<option th:value="Otro" th:text="Otro" >Otro</option>
+
+									</select>
+								</div>
+							</div>
+
+
+							
+
+							<!-- errores  para el precio: id="totalAmt"-->
+							<div class="text-danger " th:if="${#fields.hasErrors('nombre')}"
+								th:errors="*{nombre}"></div>
+							<div class="text-danger "
+								th:if="${#fields.hasErrors('categoria')}"
+								th:errors="*{categoria}"></div>
+	
+
+							<hr>
+							<div class="text-center   pt-0 my-5">
+								<button type="submit" class="btn hubobutton " th:text="BUSCAR"></button>
+
+							</div>
+							<hr>
+						</div>
+
+					</div>
+
+				</div>
+
+			</form>
+			<footer class="mt-auto">
+				<ul>
+					<li><a href="#"> Contacto:</a> carlos01ep@gmail.com</li>
+					<li><a href="#">Términos y condiciones</a></li>
+					<li><a href="#">Política de privacidad</a></li>
+				</ul>
+				<p> &copy; HUBO BURGER 2023</p>
+			</footer>
+		</section>
+
+	</main>
+</body>
+</html>
