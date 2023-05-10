@@ -102,7 +102,7 @@ public class ControladorPrincipal implements ErrorController {
 	@GetMapping("/")
 	public String loginindex(LoginForm loginForm, HttpSession session) {
 
-		return "login";
+		return "/login";
 	}
 
 	@GetMapping("/login")
