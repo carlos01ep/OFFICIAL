@@ -23,7 +23,9 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<img src="/images/logomain.png" class="img img-main" alt="logo" /> <a
-				class="navbar-brand" th:href="@{/homeadmin}">Hubo Burger</a>
+				class="navbar-brand" th:href="@{/homeadmin}" th:if="${session.rol_usuario} == 'admin'">Hubo Burger</a>
+<a
+				class="navbar-brand" th:href="@{/home}" th:if="${session.rol_usuario} == 'usuario'">Hubo Burger</a>
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -42,8 +44,7 @@
 							<li><a class="dropdown-item" th:href="@{/altaproducto}">Alta</a></li>
 							<li><a class="dropdown-item" th:href="@{/listaproducto}">Lista</a></li>
 							<li><a class="dropdown-item" th:href="@{/buscarproducto}">Buscar</a></li>
-							<li><a class="dropdown-item"
-								th:href="@{altaproductoxml}">Alta con XML</a></li>
+							<li><a class="dropdown-item" th:href="@{/altaproductoxml}">Alta con XML</a></li>
 						</ul></li>
 					<li class="nav-item" th:if="${session.rol_usuario} == 'admin'"><a class="nav-link"
 						th:href="@{/listausuario}">Lista de Usuarios</a></li>

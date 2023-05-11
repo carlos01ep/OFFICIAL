@@ -32,6 +32,7 @@ import com.example.hbweb.repos.RolRepositorio;
 import com.example.hbweb.repos.UsuarioRepositorio;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 
@@ -387,6 +388,7 @@ public class ControladorPrincipal implements ErrorController {
 	}
 
 	@PostMapping(path = "/nuevopedido")
+	@Transactional
 	public String checkPedido(@Valid NuevoPedidoForm nuevoPedidoForm, BindingResult bindingResult, Model modelo,
 			HttpSession session) {
 
