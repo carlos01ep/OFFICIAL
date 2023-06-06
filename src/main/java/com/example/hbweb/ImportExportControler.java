@@ -46,7 +46,7 @@ public class ImportExportControler {
 			listaProducto.add(nuevoProducto);
 		}
 
-		String archivoProductos = "productos.xml";
+		String archivoProductos = "/productos.xml";
 
 		JAXBContext context = JAXBContext.newInstance(ProductoJAXB.class, ProductosJAXB.class);
 		Marshaller marshaller = context.createMarshaller();
@@ -61,7 +61,7 @@ public class ImportExportControler {
 	@GetMapping("/altaproductoxml")
 	public String altaProductoXML(ProductoForm productoForm) {
 
-		return "altaproductoxml";
+		return "/altaproductoxml";
 	}
 
 	@PostMapping(path = "/altaproductoxml")

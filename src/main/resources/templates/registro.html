@@ -40,7 +40,8 @@
 							<!--<label class="form-label" for="form3Example3">Correo
 								electrónico</label>-->
 							<input type="email" th:field="*{email}" class="form-control"
-								placeholder="Correo electrónico" th:readonly="${session.rol_usuario != null}">
+								placeholder="Correo electrónico"
+								th:readonly="${session.rol_usuario != null}">
 						</div>
 						<!-- Password input -->
 						<div class="form-outline mb-3"
@@ -83,7 +84,7 @@
 						<!-- errores -->
 						<div class="text-danger " th:if="${#fields.hasErrors('email')}"
 							th:errors="*{email}"></div>
-						<div  class="text-danger " th:if="${#fields.hasErrors('password')}"
+						<div class="text-danger " th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}"></div>
 						<div class="text-danger " th:if="${#fields.hasErrors('nombre')}"
 							th:errors="*{nombre}"></div>
@@ -115,15 +116,20 @@
 
 						</div>
 						<div class="row mb-4" th:if="${session.rol_usuario != null}">
-							<label class="form-label col-6 d-flex justify-content-center align-items-center"
-								for="rol">Rol: </label>
+							<label
+								class="form-label col-6 d-flex justify-content-center align-items-center"
+								for="rol">Rol:</label>
 							<div class="col-6">
 								<select class="form-select text-muted" id="rol" name="rol"
 									required="required" placeholder="rol">
-									<option th:value="1" th:text="1"
-										th:selected="${registroForm.rol == 1}"></option>
-									<option th:value="2" th:text="2"
-										th:selected="${registroForm.rol == 2}"></option>
+									<option th:value="1" th:selected="${registroForm.rol == 1}"
+										th:text="${registroForm.rol == 1 ? 'Admin' : 'Admin'}"></option>
+									<option th:value="2" th:selected="${registroForm.rol == 2}"
+										th:text="${registroForm.rol == 2 ? 'Usuario' : 'Usuario'}"></option>
+									<option th:value="3" th:selected="${registroForm.rol == 3}"
+										th:text="${registroForm.rol == 3 ? 'Dependiente' : 'Dependiente'}"></option>
+									<option th:value="4" th:selected="${registroForm.rol == 4}"
+										th:text="${registroForm.rol == 4 ? 'Delivery' : 'Delivery'}"></option>
 								</select>
 							</div>
 						</div>

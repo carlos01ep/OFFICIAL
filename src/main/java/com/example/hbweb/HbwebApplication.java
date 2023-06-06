@@ -29,19 +29,28 @@ public class HbwebApplication {
 			if (rolRepositorio.count()==0) {
 				Rol rol1 = new Rol(1, "administrador");
 				Rol rol2 = new Rol(2, "usuario");
+				Rol rol3 = new Rol(3, "usuario dependiente");
+				Rol rol4 = new Rol(4, "delivery");
 				
 				rolRepositorio.save(rol1);
 				rolRepositorio.save(rol2);
-				
+				rolRepositorio.save(rol3);
+				rolRepositorio.save(rol4);
 				//cargamos en la BBDD usuarios por defecto
 				
 				Usuario usuario1 = new Usuario("admin01ep@gmail.com", "asdASD123", "12312312W", "admin1", "apellidoAdmin", "123123123",
 						rol1);
 				Usuario usuario2 = new Usuario("Usuario01ep@gmail.com", "asdASD123", "12312312W", "usuario1", "apellidoUsuario", "123123123",
 						rol2);
+				Usuario usuario3 = new Usuario("ddd01ep@gmail.com", "asdASD123", "12312312W", "admin1", "apellidoAdmin", "123123123",
+						rol1);
+				Usuario usuario4 = new Usuario("uuu01ep@gmail.com", "asdASD123", "12312312W", "usuario1", "apellidoUsuario", "123123123",
+						rol2);
 				
 				usuarioRepositorio.save(usuario1);
 				usuarioRepositorio.save(usuario2);
+				usuarioRepositorio.save(usuario3);
+				usuarioRepositorio.save(usuario4);
 				
 				//cargamos en la BBDD productos por defecto
 				

@@ -82,9 +82,8 @@
 								<tr>
 									<th  style="width: 200px;">ID</th>
 									<th style="width: 300px;">Nombre</th>
-									<th style="width: 200px;">Categoría</th>
 									<th class="text-right" style="width: 150px;">Precio</th>
-									<th class="text-center" style="width: 150px;">Ver detalle</th>
+									<th class="text-center" style="width: 150px;">Detalle</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -93,7 +92,6 @@
 									<tr>
 										<td th:text="${producto.id}"></td>
 										<td th:text="${producto.nombre}"></td>
-										<td th:text="${producto.categoria}"></td>
 										<td class="text-right" th:text="${producto.precio} + ' €'"></td>
 										<td class="text-center"><a
 											th:href="@{/detalleproducto/{id}(id=${producto.id})}"

@@ -1,0 +1,44 @@
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<img src="/images/logomain.png" class="img img-main" alt="logo" /> <a
+				class="navbar-brand" th:href="@{/homeadmin}">Hubo Burger</a>
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse p-1">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false" th:if="${session.rol_usuario} == 'admin'">
+							Productos </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" th:href="@{/altaproducto}">Alta</a></li>
+							<li><a class="dropdown-item" th:href="@{/listaproducto}">Lista</a></li>
+							<li><a class="dropdown-item" th:href="@{/buscarproducto}">Buscar</a></li>
+							<li><a class="dropdown-item" th:href="@{/altaproductoxml}">Alta con XML</a></li>
+						</ul></li>
+					<li class="nav-item" th:if="${session.rol_usuario} == 'admin'"><a class="nav-link"
+						th:href="@{/listausuario}">Lista de Usuarios</a></li>
+					<li class="nav-item" th:if="${session.rol_usuario} == 'admin'"><a class="nav-link"
+						th:href="@{/listapedido}">Lista de Pedidos</a></li>
+					<li class="nav-item" th:if="${session.rol_usuario} == 'usuario'"><a
+						class="nav-link" th:href="@{/nuevopedido}">Nuevo Pedido</a></li>
+					<li class="nav-item" th:if="${session.rol_usuario} == 'usuario'"><a
+						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
+				</ul>
+				<ul class="navbar-nav justify-content-center align-items-center">
+					<li class="nav-item"><a class="nav-link active justify-content-center align-items-center user-margen-derecho"
+						aria-current="page" href="#" th:text=${session.usuario_name}>User
+							Name</a></li>
+					<li class="nav-item">
+					 <a class="my-0" th:href="@{/logout}"><button class="btn burgerbutton ">CERRAR SESIÓN</button></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>

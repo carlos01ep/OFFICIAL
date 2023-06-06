@@ -1,4 +1,5 @@
 package com.example.hbweb;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
 
 import com.example.hbweb.form.BuscarProducto;
 import com.example.hbweb.form.LoginForm;
@@ -35,10 +34,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
-
 @Controller
 public class ControladorPrincipal implements ErrorController {
-	@Autowired 
+	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 	@Autowired
 	private RolRepositorio rolRepositorio;
@@ -49,30 +47,30 @@ public class ControladorPrincipal implements ErrorController {
 	@Autowired
 	private ClienteRepositorio clienteRepositorio;
 
-	// gets 
-	/*@GetMapping("/pruebas")
-	public String pagPruebas() {
-
-		return "pruebas";
-	}*/
+	// gets
+	/*
+	 * @GetMapping("/pruebas") public String pagPruebas() {
+	 * 
+	 * return "pruebas"; }
+	 */
 
 	@GetMapping("/home")
 	public String homelink(HttpSession session, LoginForm loginForm, Model modelo) {
 		if (session != null) {
 			if (session.getAttribute("rol").equals("2")) {
-	
+
 				Iterable<Producto> itProducto = productoRepositorio.findAll();
 				// Convertimos
 				List<Producto> listaProducto = new ArrayList<Producto>();
 				itProducto.forEach(listaProducto::add);
 				List<Producto> listaProductoHome = listaProducto.subList(0, 3);
-				List<Producto>listaProductoActivos = productoRepositorio.findByStockTrue(); //tiene que pasar a traves de un objeto iterable
+				List<Producto> listaProductoActivos = productoRepositorio.findByStockTrue(); // tiene que pasar a traves
+																								// de un objeto iterable
 				Collections.shuffle(listaProductoActivos);
 				modelo.addAttribute("listaProductoHome", listaProductoHome);
-				
-				modelo.addAttribute("listaProductoActivos",listaProductoActivos);
-				
-				
+
+				modelo.addAttribute("listaProductoActivos", listaProductoActivos);
+
 				return "/home";
 			} else {
 				session.setAttribute("rol", "");
@@ -143,6 +141,11 @@ public class ControladorPrincipal implements ErrorController {
 				} else if (loginUsuario.getRol().getTipo() == 2) {
 					session.setAttribute("rol_usuario", "usuario");
 					return "redirect:/home";
+
+				} else if (loginUsuario.getRol().getTipo() == 3) {
+					session.setAttribute("rol_usuario", "usuariodependiente");
+					return "redirect:/homedependiente";
+
 				} else {
 					return "redirect:/home";
 
@@ -222,10 +225,21 @@ public class ControladorPrincipal implements ErrorController {
 			usuarioEditar.setApellidos(registroForm.getApellidos());
 
 			usuarioEditar.setTelefono(registroForm.getTelefono());
-			if (registroForm.getRol() == 1) {
+			switch (registroForm.getRol()) {
+			case 1:
 				usuarioEditar.setRol(rolRepositorio.findByTipo(1));
-			} else {
+				break;
+			case 2:
 				usuarioEditar.setRol(rolRepositorio.findByTipo(2));
+				break;
+			case 3:
+				usuarioEditar.setRol(rolRepositorio.findByTipo(3));
+				break;
+			case 4:
+				usuarioEditar.setRol(rolRepositorio.findByTipo(4));
+				break;
+			default:
+				return "/error";
 			}
 			usuarioRepositorio.save(usuarioEditar);
 			return "redirect:/listausuario";
@@ -341,7 +355,7 @@ public class ControladorPrincipal implements ErrorController {
 	@GetMapping("/detalleproducto/{id}")
 	public String verDetalleProducto(@PathVariable String id, Model model, HttpSession session, LoginForm loginForm) {
 		if (session != null) {
-			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2")) {
+			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2")|| session.getAttribute("rol").equals("3")) {
 				Producto producto = productoRepositorio.findById(Integer.parseInt(id));
 
 				model.addAttribute("producto", producto);
@@ -566,11 +580,12 @@ public class ControladorPrincipal implements ErrorController {
 		return "redirect:/listaproducto";
 	}
 
-	//error
-	 private static final String PATH = "/error";
+	// error
+	private static final String PATH = "/error";
+
 	@GetMapping("/error")
-    public String handleError() {
-        return "/error";
-    }
+	public String handleError() {
+		return "/error";
+	}
 
 }

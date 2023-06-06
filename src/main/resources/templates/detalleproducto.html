@@ -26,6 +26,8 @@
 				class="navbar-brand" th:href="@{/homeadmin}" th:if="${session.rol_usuario} == 'admin'">Hubo Burger</a>
 <a
 				class="navbar-brand" th:href="@{/home}" th:if="${session.rol_usuario} == 'usuario'">Hubo Burger</a>
+				<a
+				class="navbar-brand" th:href="@{/homedependiente}" th:if="${session.rol_usuario} == 'usuariodependiente'">Hubo Burger</a>
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -50,9 +52,9 @@
 						th:href="@{/listausuario}">Lista de Usuarios</a></li>
 					<li class="nav-item" th:if="${session.rol_usuario} == 'admin'"><a class="nav-link"
 						th:href="@{/listapedido}">Lista de Pedidos</a></li>
-					<li class="nav-item" th:if="${session.rol_usuario} == 'usuario'"><a
+					<li class="nav-item" th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente'}"><a
 						class="nav-link" th:href="@{/nuevopedido}">Nuevo Pedido</a></li>
-					<li class="nav-item" th:if="${session.rol_usuario} == 'usuario'"><a
+					<li class="nav-item" th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente'}"><a
 						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
 				</ul>
 				<ul class="navbar-nav justify-content-center align-items-center">
