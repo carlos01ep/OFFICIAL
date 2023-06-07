@@ -58,9 +58,9 @@ public class HbwebApplication {
 				Producto p1 = new Producto("Hubo chicken", "Hamburguesa", "pan, tomate, lechuga, queso, carne de res y cerdo, pollo, huevo", "hbmin1.png", 6.00, true, usuario1);
 				Producto p2 = new Producto("Hubo triple", "Hamburguesa", "pan, tomate, carne de res y cerdo, lechuga, queso, cebolla, pepinillo", "hbmin2.png", 8.00, true, usuario1);
 				Producto p3 = new Producto("Hubo doble", "Hamburguesa", "pan, tomate, carne de res y cerdo, lechuga, queso, cebolla", "hbmin3.png", 7.00, true, usuario1);
-				Producto p4 = new Producto("Cocacola", "Bebida", "azucar", "hbmin4.png", 1.50, true, usuario1);
+				Producto p4 = new Producto("Cocacola", "Bebida", "azucar", "hbmin4.png", 3.50, true, usuario1);
 				Producto p5 = new Producto("Patatas fritas", "Complemento", "patatas, sal", "hbmin7.png", 2.00, true, usuario1);
-				Producto p6 = new Producto("Cocacola Green", "Bebida", "azucar", "hbmin6.png", 1.50, true, usuario1);
+				Producto p6 = new Producto("Cocacola Green", "Bebida", "azucar", "hbmin6.png", 3.50, true, usuario1);
 				Producto p7 = new Producto("Patatas Hubo", "Complemento", "patatas, sal", "hbmin8.png", 2.00, true, usuario1);
 				Producto p8 = new Producto("Cocacola Blue", "Bebida", "azucar", "hbmin5.png", 1.50, true, usuario1);
 				productoRepositorio.save(p1);
