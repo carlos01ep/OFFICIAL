@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.hbweb.form.BuscarProducto;
 import com.example.hbweb.form.LoginForm;
 import com.example.hbweb.form.NuevoPedidoForm;
+import com.example.hbweb.form.NuevoPedidoFormDependiente;
 import com.example.hbweb.form.ProductoForm;
 import com.example.hbweb.form.RegistroForm;
 import com.example.hbweb.model.Cliente;
@@ -83,7 +84,7 @@ public class ControllerDependiente {
 	// nuevopedido
 
 		@GetMapping("/nuevopedidodependiente")
-		public String nuevoPedido(NuevoPedidoForm nuevoPedidoForm, Model modelo, HttpSession session, LoginForm loginForm) {
+		public String nuevoPedido(Model modelo, HttpSession session, LoginForm loginForm) {
 			if (session != null) {
 				if (session.getAttribute("rol").equals("3")) {
 					Iterable<Producto> itProducto = productoRepositorio.findByStockTrue();
@@ -118,52 +119,59 @@ public class ControllerDependiente {
 
 		@PostMapping(path = "/nuevopedidodependiente")
 		@Transactional
-		public String checkPedido(@Valid NuevoPedidoForm nuevoPedidoForm, BindingResult bindingResult, Model modelo,
-				HttpSession session) {
+		public String checkPedido(@Valid NuevoPedidoFormDependiente nuevoPedidoForm, BindingResult bindingResult, Model modelo, HttpSession session) {
+		    if (bindingResult.hasErrors()) {
+		        System.out.println("El formulario tiene errores");
+		        return "/nuevopedidodependiente";
+		    }
+		    
+		    List<String> listaProductosByIdPares = nuevoPedidoForm.getIdProductosPares();
+		    List<String> listaProductosByIdImpares = nuevoPedidoForm.getIdProductosImpares();
+		    List<String> listaCantidades = nuevoPedidoForm.getCantidadProductos();
+		    String cambio = nuevoPedidoForm.getCambio();
+		    
+		    System.out.println("Esto es lo que llega del formulario (ID productos pares): " + listaProductosByIdPares);
+		    System.out.println("Esto es lo que llega del formulario (ID productos impares): " + listaProductosByIdImpares);
+		    System.out.println("Esto es lo que llega del formulario (cantidades): " + listaCantidades);
+		    System.out.println("Esto es lo que llega del formulario (cambio): " + cambio);
+		    
+		    // Filtrar las cantidades y eliminar vacíos o ceros
+		    List<Integer> cantidadesSeleccionadas = new ArrayList<>();
+		    for (String cantidad : listaCantidades) {
+		        if (!cantidad.isEmpty() && !cantidad.equals("0")) {
+		            cantidadesSeleccionadas.add(Integer.parseInt(cantidad));
+		        }
+		    }
+		    System.out.println("Esto es lo que llega del formulario (cantidades filtradas): " + cantidadesSeleccionadas);
+		    
+		    Usuario usuarioPedido = usuarioRepositorio.findByEmail((String) session.getAttribute("usuario"));
+		    Cliente nuevoCliente = new Cliente();
+		    clienteRepositorio.save(nuevoCliente);
+		    List<String> listaProductos = new ArrayList<>();
 
-			if (bindingResult.hasErrors()) {
-				return "/nuevopedidodependiente";
-			}
-			List<String> listaProductosById = nuevoPedidoForm.getIdProductos();
-			List<String> listaCantidades = nuevoPedidoForm.getCantidadProductos();
-			System.out.println("Esto es lo que llega del formulario:" + listaProductosById);
-			System.out.println("Esto es lo que llega del formulario:" + listaCantidades);
-			// para filtrar las cantidades y eliminar vacios o ceros
-			List<Integer> cantidadesSeleccionadas = new ArrayList<>();
-			for (int i = 0; i < listaCantidades.size(); i++) {
-				String cantidad = listaCantidades.get(i);
-				if (cantidad != "") {// controlar aqui si es != 0
-					if (cantidad != "0") {
-						cantidadesSeleccionadas.add(Integer.parseInt(cantidad));
-					}
-				}
-			}
-			System.out.println("Esto es lo que llega del formulario:" + cantidadesSeleccionadas);
+		    if (listaProductosByIdPares != null) {
+		        listaProductos.addAll(listaProductosByIdPares);
+		    }
 
-			Usuario usuarioPedido = usuarioRepositorio.findByEmail((String) session.getAttribute("usuario"));
-			Cliente nuevoCliente = new Cliente();
-			clienteRepositorio.save(nuevoCliente);
-			int posCant = 0;
-			for (String idProducto : listaProductosById) {
-				Pedido nuevoPedido = new Pedido(usuarioPedido, nuevoCliente, cantidadesSeleccionadas.get(posCant));
+		    if (listaProductosByIdImpares != null) {
+		        listaProductos.addAll(listaProductosByIdImpares);
+		    }
+		    int posCant = 0;
+		    for (String idProducto : listaProductos) {
+		        Pedido nuevoPedido = new Pedido(usuarioPedido, nuevoCliente, cantidadesSeleccionadas.get(posCant));
+		        Producto producto = productoRepositorio.findById(Integer.parseInt(idProducto));
+		        
+		        nuevoPedido.setImporteTotal(cantidadesSeleccionadas.get(posCant).doubleValue() * producto.getPrecio());
+		        nuevoPedido.getListaProductos().add(producto);
+		        producto.getListaPedido().add(nuevoPedido);
+		        
+		        pedidioRepositorio.save(nuevoPedido);
+		        
+		        posCant++;
+		    }
 
-				Producto producto = productoRepositorio.findById(Integer.parseInt(idProducto));
-				// formateo de Importe:
-
-				// double importe = cantidadesSeleccionadas.get(posCant).doubleValue() *
-				// producto.getPrecio();
-				// DecimalFormat df = new DecimalFormat("#.##");
-				// String importeFormateado = df.format(importe);
-				// double importeFormateadoDouble = Double.parseDouble(importeFormateado);
-
-				nuevoPedido.setImporteTotal(cantidadesSeleccionadas.get(posCant).doubleValue() * producto.getPrecio());
-				nuevoPedido.getListaProductos().add(producto);
-				producto.getListaPedido().add(nuevoPedido);
-				pedidioRepositorio.save(nuevoPedido);
-				posCant++;
-			}
-
-			return "redirect:/listapedido";
-
+		    
+		    return "redirect:/listapedido";
 		}
+
 }

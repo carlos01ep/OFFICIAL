@@ -456,7 +456,7 @@ public class ControladorPrincipal implements ErrorController {
 	@GetMapping("/listapedido")
 	public String showListaPedidos(Model modelo, HttpSession session, LoginForm loginForm) {
 		if (session != null) {
-			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2")) {
+			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2") || session.getAttribute("rol").equals("3") || session.getAttribute("rol").equals("4")) {
 				Iterable<Object[]> itConsulta = pedidioRepositorio.PedidosByClienteQuerry();
 				List<Object[]> listaConsulta = new ArrayList<Object[]>();
 				itConsulta.forEach(listaConsulta::add);
@@ -479,7 +479,7 @@ public class ControladorPrincipal implements ErrorController {
 	@GetMapping("/detallepedido/{id}")
 	public String verDetallePedido(@PathVariable String id, Model modelo, HttpSession session, LoginForm loginForm) {
 		if (session != null) {
-			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2")) {
+			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2") || session.getAttribute("rol").equals("3") || session.getAttribute("rol").equals("4")) {
 				Iterable<Object[]> itConsulta = pedidioRepositorio.ListaDetalleByClienteQuerry(Integer.parseInt(id));
 				List<Object[]> listaConsulta = new ArrayList<Object[]>();
 				itConsulta.forEach(listaConsulta::add);

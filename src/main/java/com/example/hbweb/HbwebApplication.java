@@ -71,8 +71,7 @@ public class HbwebApplication {
 				productoRepositorio.save(p6);
 				productoRepositorio.save(p7);
 				productoRepositorio.save(p8);
-				
-				
+
 			}
 			
 		};

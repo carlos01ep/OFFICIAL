@@ -21,13 +21,23 @@
 
 <link rel="stylesheet" th:href="@{/login.css}" />
 <link rel="stylesheet" th:href="@{/home.css}" />
-<link rel="stylesheet" th:href="@{/altaproducto.css}" />
-<link rel="stylesheet" th:href="@{/nuevopedido.css}" />
+
 <style>
+input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
+	height: 100px;
+	width: 100px;
+}
+
+.input[type="checkbox"]:hover {
+	/* Opcional: Puedes ajustar el tamaño al hacer hover */
+	height: 100px;
+	width: 100px;
+}
+
 .custom-checkbox {
 	display: inline-block;
-	width: 50px;
-	height: 50px;
+	width: 100px;
+	height: 100px;
 	position: relative;
 }
 
@@ -52,22 +62,21 @@
 }
 
 .custom-checkbox::after {
-	width: 50px;
-	height: 50px;
+	width: 100px;
+	height: 100px;
 	content: "✓";
-	font-size: 30px;
+	font-size: 60px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 2;
-	color: white; /* Cambiar el color a verde */
-	font-weight: bold; /* Añadir negrita para aumentar el grosor */
-	border: 3px solid white;
-	/* Cambiar el grosor y el color del borde a verde */
-	text-align: center; /* Centrar horizontalmente el contenido */
-	line-height: 40px; /* Centrar verticalmente el contenido */
-	background-color: rgba(93, 219, 2, 0.6); /* Agregar fondo semitransparente */
+	color: white;
+	font-weight: bold;
+	border: 5px solid white;
+	text-align: center;
+	line-height: 80px;
+	background-color: rgba(93, 219, 2, 0.6);
 }
 
 .custom-checkbox:not(.checked)::after {
@@ -78,6 +87,18 @@
 	{
 	display: block;
 }
+/*#lista-productos li {
+        list-style-type: none;
+    }*/
+.custom-input {
+	width: 30%;
+	/* Puedes ajustar el valor del ancho según tus necesidades */
+}
+/*.btn-coma {
+  font-size: 1.25rem; 
+  width: 100%;
+  padding: 0.375rem 0.75rem; 
+}*/
 </style>
 </head>
 <body>
@@ -139,94 +160,190 @@
 		<section class="vh-100 ">
 			<div class="jumbotron">
 				<div
-					class="container my-4 d-flex justify-content-center align-items-center mt-3 pt-3">
+					class="container my-3 d-flex justify-content-center align-items-center mt-2 pt-2">
 					<h1 class="display-6 fw-bold ">NUEVO PEDIDO</h1>
 				</div>
 				<form action="#" th:action="@{nuevopedidodependiente}"
 					th:object="${nuevoPedidoForm}" method="post">
-					<div class="container-fluid h-custom ">
+					<div class="container-fluid h-custom">
 						<div class="row d-flex justify-content-center align-items-center">
 							<!-- image -->
-							<div class="col-md-9 col-lg-9 col-xl-8 bg-light ">
-
+							<div class="col-md-9 col-lg-9 col-xl-8 bg-light align-self-start">
 								<div class="divider d-flex align-items-center mt-4">
-									<p class="text-center fw-bold mx-3 mb-0  ">SELECCIÓN DE
+									<p class="text-center fw-bold mx-3 mb-0">SELECCIÓN DE
 										PRODUCTOS</p>
 								</div>
-
-								<table class="table">
-									<thead>
-										<tr>
-											<th scope="col">Producto Par</th>
-											<th scope="col">Cantidad Par</th>
-											<th scope="col">Seleccionar Par</th>
-											<th scope="col">Producto Impar</th>
-											<th scope="col">Cantidad Impar</th>
-											<th scope="col">Seleccionar Impar</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="productoPar, iterStat : ${listaProductoPar}">
-											<td><a
-												th:href="@{/detalleproducto/{id}(id=${productoPar.id})}"
-												th:text="${productoPar.nombre}">Nombre Producto Par</a></td>
-											<td><input type="number" min="1"
-												th:name="'cantidadPar' + ${productoPar.id}" /></td>
-											<td>
-												<div class="custom-checkbox">
-													<div class="background-image"
-														th:style="'background-image: url(/images/' + ${productoPar.image} + ');'">
-													</div>
-													<input type="checkbox"
-														th:name="'seleccionarPar' + ${productoPar.id}" />
-												</div>
-											</td>
-											<td th:if="${iterStat.index < listaProductoImpar.size()}">
-												<a
-												th:href="@{/detalleproducto/{id}(id=${listaProductoImpar[iterStat.index].id})}"
-												th:text="${listaProductoImpar[iterStat.index].nombre}">Nombre
-													Producto Impar</a>
-											</td>
-											<td th:if="${iterStat.index < listaProductoImpar.size()}">
-												<input type="number" min="1"
-												th:name="'cantidadImpar' + ${listaProductoImpar[iterStat.index].id}" />
-											</td>
-											<td th:if="${iterStat.index < listaProductoImpar.size()}">
-												<div class="custom-checkbox">
-													<div class="background-image"
-														th:style="'background-image: url(/images/' + ${listaProductoImpar[iterStat.index].image} + ');'"></div>
-													<input type="checkbox"
-														th:name="'seleccionarImpar' + ${listaProductoImpar[iterStat.index].id}" />
-												</div>
-											</td>
-											<td th:if="${iterStat.index >= listaProductoImpar.size()}">&nbsp;</td>
-											<td th:if="${iterStat.index >= listaProductoImpar.size()}">&nbsp;</td>
-											<td th:if="${iterStat.index >= listaProductoImpar.size()}">&nbsp;</td>
-										</tr>
-									</tbody>
-								</table>
+								<div class="row">
+									<div class="col-md-6">
+										<table class="table" id="tabla-productos-par">
+											<tbody>
+												<tr th:each="productoPar, iterStat : ${listaProductoPar}">
+													<td>
+														<ul class="list-unstyled">
+															<li class="">
+																<div class="custom-checkbox">
+																	<div class="background-image"
+																		th:style="'background-image: url(/images/' + ${productoPar.image} + ');'"></div>
+																	<input type="checkbox"
+																		th:id="'seleccionarPar' + ${productoPar.id}"
+																		th:name="'idProductosPares'"
+																		th:value="${productoPar.id}" /> <input type="hidden"
+																		th:id="'nombrePar-' + ${productoPar.id}"
+																		th:name="'nombrePar' + ${productoPar.id}"
+																		th:value="${productoPar.nombre}" />
+																</div>
+															</li>
+														</ul>
+													</td>
+													<td>
+														<ul class="list-unstyled">
+															<li class=""><a class="producto-nombre"
+																th:href="@{/detalleproducto/{id}(id=${productoPar.id})}"
+																th:text="${productoPar.nombre}">Nombre Producto Par</a></li>
+															<li><span th:text="${productoPar.precio} + ' €'"
+																class="producto-precio"></span></li>
+															<li>
+																<div class="col-lg-5 col-sm-7 col-md-9">
+																	<input type="number"
+																		class="form-control form-control-sm"
+																		placeholder="Cant." aria-label="Cant."
+																		th:id="'cant-' + ${productoPar.id}"
+																		th:name="'cantidadProductos'" th:value="''" min="0"
+																		disabled>
+																</div>
+															</li>
+														</ul>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-6">
+										<table class="table" id="tabla-productos-impar">
+											<tbody>
+												<tr
+													th:each="productoImpar, iterStat : ${listaProductoImpar}">
+													<td>
+														<ul class="list-unstyled">
+															<li class="">
+																<div class="custom-checkbox">
+																	<div class="background-image"
+																		th:style="'background-image: url(/images/' + ${productoImpar.image} + ');'"></div>
+																	<input type="checkbox"
+																		th:id="'seleccionarImpar' + ${productoImpar.id}"
+																		th:name="'idProductosImpares'"
+																		th:value="${productoImpar.id}" /> <input
+																		type="hidden"
+																		th:id="'nombreImpar-' + ${productoImpar.id}"
+																		th:name="'nombreImpar' + ${productoImpar.id}"
+																		th:value="${productoImpar.nombre}" />
+																</div>
+															</li>
+														</ul>
+													</td>
+													<td>
+														<ul class="list-unstyled">
+															<li class=""><a class="producto-nombre"
+																th:href="@{/detalleproducto/{id}(id=${productoImpar.id})}"
+																th:text="${productoImpar.nombre}">Nombre Producto
+																	Impar</a></li>
+															<li><span th:text="${productoImpar.precio} + ' €'"
+																class="producto-precio"></span></li>
+															<li>
+																<div class="col-lg-5 col-sm-7 col-md-9 mb-2">
+																	<input type="number"
+																		class="form-control form-control-sm"
+																		placeholder="Cant." aria-label="Cant."
+																		th:id="'cant-' + ${productoImpar.id}"
+																		th:name="'cantidadProductos'" th:value="''" min="0"
+																		disabled>
+																</div>
+															</li>
+														</ul>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
 								<hr>
-
-
 							</div>
 
-							<div class="col-md-3 col-lg-3 col-xl-3 mx-4 bg-light">
-
-
+							<div
+								class="col-md-3 col-lg-3 col-xl-3 mx-4 bg-light align-self-start">
 								<div class="divider d-flex align-items-center my-4">
-									<p class="text-center fw-bold mx-3 mb-0  ">Calcular Cambio</p>
+									<p class="text-center fw-bold mx-3 mb-0">CALCULAR CAMBIO</p>
 								</div>
+								<div id="info-productos">
+									<h6>Productos seleccionados:</h6>
+									<ul id="lista-productos"></ul>
+									<h6>
+										Total: <span id="total"></span> €
+									</h6>
+									<hr>
+									<div>
 
-								<hr>
-								<div class="text-center   pt-0 my-5">
-									<button type="submit" class="btn hubobutton ">FINALIZAR
+										<div
+											class="cantidad-input d-flex justify-content-center align-items-center my-4 px-2">
+											<label class="px-2" for="monto-pago">Monto de pago:</label> <input
+												type="number" id="monto-pago" min="0" step="0.01"
+												class="form-control form-control-sm col-4 custom-input"
+												name="montoPago" /> <label class="px-2">€</label>
+										</div>
+
+										<table
+											class="table-responsive d-flex align-items-center justify-content-center">
+											<tr>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">0</button></td>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">1</button></td>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">2</button></td>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">3</button></td>
+											</tr>
+											<tr>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">C</button></td>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">4</button></td>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">5</button></td>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">6</button></td>
+											</tr>
+											<tr>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">X</button></td>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">7</button></td>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">8</button></td>
+												<td><button type="button"
+														class="btn btn-secondary btn-numero btn-lg">9</button></td>
+											</tr>
+										</table>
+									</div>
+									<hr>
+									<div class="cantidad-input d-flex justify-content-center my-2">
+										<label class="px-2">Cambio:</label> <input type="text"
+											id="cambio" readonly
+											class="form-control form-control-sm col-4 custom-input"
+											name="cambio" /> <label class="px-2">€</label>
+									</div>
+								</div>
+								<div class="divider d-flex align-items-center my-3"></div>
+								<div class="text-center pt-0 my-2">
+									<button type="submit" class="btn hubobutton">FINALIZAR
 										PEDIDO</button>
 								</div>
-								<hr>
+								<div class="divider d-flex align-items-center my-3"></div>
 							</div>
 						</div>
 					</div>
 				</form>
+
 			</div>
 			<footer class="mt-auto">
 				<ul>
@@ -246,5 +363,117 @@
     });
   });
 </script>
+	<script>
+$(document).ready(function() {
+    $('#tabla-productos-par input[type="checkbox"]').change(function() {
+        var idProducto = $(this).attr('id').replace('seleccionarPar', '');
+        habilitarNumero(idProducto);
+    });
+
+    $('#tabla-productos-impar input[type="checkbox"]').change(function() {
+        var idProducto = $(this).attr('id').replace('seleccionarImpar', '');
+        habilitarNumeroImpar(idProducto);
+    });
+
+    function habilitarNumero(idProducto) {
+        var checkbox = document.getElementById("seleccionarPar" + idProducto);
+        var numero = document.getElementById("cant-" + idProducto);
+
+        if (checkbox.checked) {
+            numero.disabled = false;
+        } else {
+            numero.disabled = true;
+        }
+    }
+
+    function habilitarNumeroImpar(idProducto) {
+        var checkbox = document.getElementById("seleccionarImpar" + idProducto);
+        var numero = document.getElementById("cant-" + idProducto);
+
+        if (checkbox.checked) {
+            numero.disabled = false;
+        } else {
+            numero.disabled = true;
+        }
+    }
+});
+</script>
+	<script>
+$(document).ready(function() {
+  // Obtener los checkboxes de los productos
+  var checkboxes = $('#tabla-productos-par input[type="checkbox"], #tabla-productos-impar input[type="checkbox"]');
+
+  checkboxes.change(function() {
+    // Limpiar la lista de productos seleccionados y el total
+    $('#lista-productos').empty();
+    var total = 0;
+
+    // Recorrer los checkboxes y obtener los productos seleccionados
+    checkboxes.each(function() {
+      if (this.checked) {
+        var producto = $(this).closest('tr').find('.producto-nombre').text();
+        var precio = parseFloat($(this).closest('tr').find('.producto-precio').text());
+        var cantidad = parseFloat($(this).closest('tr').find('input[type="number"]').val());
+
+        // Agregar el producto a la lista de productos seleccionados
+        var newListItem = $('<li>').text(producto + ' x ' + cantidad);
+        $('#lista-productos').append(newListItem);
+
+        // Calcular el precio por la cantidad y sumarlo al total
+        total += precio * cantidad;
+      }
+    });
+
+    // Actualizar el total en el lateral
+    $('#total').text(total.toFixed(2));
+
+    // Calcular el cambio si ya se ingresó un monto de pago
+    var montoPago = parseFloat($('#monto-pago').val());
+    if (!isNaN(montoPago)) {
+      var cambio = montoPago - total;
+
+      // Mostrar el cambio en el lateral
+      $('#cambio').val(cambio.toFixed(2));
+    }
+  });
+
+  // Actualizar en tiempo real cuando se modifica el campo de cantidad
+  $('input[type="number"]').on('input', function() {
+    checkboxes.trigger('change');
+  });
+
+  // Capturar el número del botón clicado y actualizar el valor del input
+  $('.btn-numero').click(function() {
+    var numero = $(this).text();
+    var montoPagoInput = $('#monto-pago');
+    var montoPago = montoPagoInput.val();
+
+    if (numero === 'C') {
+      // Borrar la última cifra del monto de pago
+      montoPagoInput.val(montoPago.slice(0, -1));
+    } else {
+      montoPagoInput.val(montoPago + numero);
+    }
+
+    montoPagoInput.trigger('input'); // Disparar evento de cambio en el input
+  });
+
+  // Calcular el cambio al ingresar el monto de pago
+  $('#monto-pago').on('input', function() {
+    var montoPago = parseFloat($(this).val());
+    var total = parseFloat($('#total').text());
+    var cambio = montoPago - total;
+
+    // Mostrar el cambio en el lateral
+    $('#cambio').val(cambio.toFixed(2));
+  });
+});
+
+</script>
+
+
+
+
+
 </body>
 </html>
