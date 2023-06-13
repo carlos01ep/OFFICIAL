@@ -1,4 +1,5 @@
 package com.example.hbweb.form;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -17,16 +18,16 @@ public class NuevoPedidoFormDependiente {
     @NotEmpty(message = "La lista de cantidades de productos no puede estar vacía")
     private List<String> cantidadProductos;
 
-    @NotBlank(message = "El campo cambio no puede estar vacío")
-    private String cambio;
+    @Min(value = 0, message = "El cambio debe ser mayor o igual a cero")
+    private Double cambio;
 
     @NotBlank(message = "El campo total no puede estar vacío")
     private String total;
 
-    @NotBlank(message = "El campo importe pagado no puede estar vacío")
-    private String importePagado;
+    @Min(value = 0, message = "El importe pagado debe ser mayor o igual a cero")
+    private Double importePagado;
     
-    public NuevoPedidoFormDependiente(List<String> idProductosPares, List<String> idProductosImpares, List<String> cantidadProductos, String cambio, String total, String importePagado) {
+    public NuevoPedidoFormDependiente(List<String> idProductosPares, List<String> idProductosImpares, List<String> cantidadProductos, Double cambio, String total, Double importePagado) {
         this.idProductosPares = idProductosPares;
         this.idProductosImpares = idProductosImpares;
         this.cantidadProductos = cantidadProductos;
@@ -63,16 +64,20 @@ public class NuevoPedidoFormDependiente {
         this.cantidadProductos = cantidadProductos;
     }
 
-    public String getCambio() {
-        return cambio;
-    }
 
-    public void setCambio(String cambio) {
-        this.cambio = cambio;
-    }
     
 
-    public String getTotal() {
+    public Double getCambio() {
+		return cambio;
+	}
+
+
+	public void setCambio(Double cambio) {
+		this.cambio = cambio;
+	}
+
+
+	public String getTotal() {
 		return total;
 	}
 
@@ -82,12 +87,12 @@ public class NuevoPedidoFormDependiente {
 	}
 
 
-	public String getImportePagado() {
+	public Double getImportePagado() {
 		return importePagado;
 	}
 
 
-	public void setImportePagado(String importePagado) {
+	public void setImportePagado(Double importePagado) {
 		this.importePagado = importePagado;
 	}
 

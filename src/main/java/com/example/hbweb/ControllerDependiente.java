@@ -118,16 +118,16 @@ public class ControllerDependiente {
 		    double cambio= 0.0;
 		    double total= 0.0;
 		    double importePagado= 0.0;
-		    if (nuevoPedidoFormDependiente.getCambio() != null && !nuevoPedidoFormDependiente.getCambio().isEmpty()) {
-		    	  cambio = Double.parseDouble(nuevoPedidoFormDependiente.getCambio());
+		    if (nuevoPedidoFormDependiente.getCambio() != null && !nuevoPedidoFormDependiente.getCambio().isNaN()) {
+		    	  cambio = nuevoPedidoFormDependiente.getCambio();
 	
 		    }
 		    if (nuevoPedidoFormDependiente.getTotal() != null && !nuevoPedidoFormDependiente.getTotal().isEmpty()) {
 		    	total = Double.parseDouble(nuevoPedidoFormDependiente.getTotal());
 	
 		    }
-		    if (nuevoPedidoFormDependiente.getImportePagado() != null && !nuevoPedidoFormDependiente.getImportePagado().isEmpty()) {
-		    	importePagado = Double.parseDouble(nuevoPedidoFormDependiente.getImportePagado());
+		    if (nuevoPedidoFormDependiente.getImportePagado() != null && !nuevoPedidoFormDependiente.getImportePagado().isNaN()) {
+		    	importePagado = nuevoPedidoFormDependiente.getImportePagado();
 	
 		    }
 

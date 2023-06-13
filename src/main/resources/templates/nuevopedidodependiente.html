@@ -111,7 +111,8 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 				th:if="${session.rol_usuario} == 'usuario'">Hubo Burger</a> <a
 				class="navbar-brand" th:href="@{/homedependiente}"
 				th:if="${session.rol_usuario} == 'usuariodependiente'">Hubo
-				Burger</a>
+				Burger</a> <a class="navbar-brand" th:href="@{/homedelivery}"
+				th:if="${session.rol_usuario} == 'delivery'">Hubo Burger</a>
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -141,7 +142,7 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 						th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente'}"><a
 						class="nav-link" th:href="@{/nuevopedido}">Nuevo Pedido</a></li>
 					<li class="nav-item"
-						th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente'}"><a
+						th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente' || session.rol_usuario == 'usuariodelivery'}"><a
 						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
 				</ul>
 				<ul class="navbar-nav justify-content-center align-items-center">
@@ -288,8 +289,8 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 									<div class="accordion" id="accordionPagoEfectivo">
 										<div class="accordion-item">
 											<h2 class="accordion-header" id="headingPagoEfectivo">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse"
+												<button class="accordion-button collapsed text-center"
+													type="button" data-bs-toggle="collapse"
 													data-bs-target="#collapsePagoEfectivo"
 													aria-expanded="false" aria-controls="collapsePagoEfectivo">
 													PAGO EN EFECTIVO</button>
@@ -302,10 +303,10 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 													<div
 														class="cantidad-input d-flex justify-content-center align-items-center my-4 px-2">
 														<label class="px-2" for="monto-pago">Monto de
-															pago:</label> <input type="text" id="monto-pago" min="0"
+															pago:</label> <input type="number" id="monto-pago" min="0"
 															step="0.01"
 															class="form-control form-control-sm col-4 custom-input"
-															th:name="importePagado" /> <label class="px-2">€</label>
+															name="montoPago" /> <label class="px-2">€</label>
 													</div>
 
 													<table
@@ -345,7 +346,7 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 												<hr>
 												<div
 													class="cantidad-input d-flex justify-content-center my-2">
-													<label class="px-2">Cambio:</label> <input type="text"
+													<label class="px-2">Cambio:</label> <input type="number"
 														id="cambio" readonly
 														class="form-control form-control-sm col-4 custom-input"
 														th:name="cambio" /> <label class="px-2">€</label>
@@ -363,7 +364,7 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 
 								<div class="divider d-flex align-items-center my-3"></div>
 								<div class="text-center pt-0 my-2">
-								
+
 									<button type="submit" class="btn hubobutton">FINALIZAR
 										PEDIDO</button>
 								</div>
@@ -429,10 +430,10 @@ $(document).ready(function() {
 </script>
 	<script>
 $(document).ready(function() {
+  // Establecer los campos "cambio" y "monto pago" a cero
+  $('#cambio').val('0.00');
+  $('#monto-pago').val(0.00);
 
-	// Establecer los campos "cambio" y "monto pago" a cero
-	  $('#cambio').val('0.00');
-	  $('#monto-pago').val('0.00');
   // Obtener los checkboxes de los productos
   var checkboxes = $('#tabla-productos-par input[type="checkbox"], #tabla-productos-impar input[type="checkbox"]');
 
@@ -443,10 +444,19 @@ $(document).ready(function() {
 
     // Recorrer los checkboxes y obtener los productos seleccionados
     checkboxes.each(function() {
-      if (this.checked) {
-        var producto = $(this).closest('tr').find('.producto-nombre').text();
-        var precio = parseFloat($(this).closest('tr').find('.producto-precio').text());
-        var cantidad = parseFloat($(this).closest('tr').find('input[type="number"]').val());
+      var checkbox = $(this);
+      var cantidadInput = checkbox.closest('tr').find('input[type="number"]');
+
+      if (checkbox.is(':checked')) {
+        var producto = checkbox.closest('tr').find('.producto-nombre').text();
+        var precio = parseFloat(checkbox.closest('tr').find('.producto-precio').text());
+        var cantidad = parseFloat(cantidadInput.val());
+
+        // Verificar si la cantidad es 0 o vacía y establecerla en 1
+        if (cantidad === 0 || isNaN(cantidad)) {
+          cantidad = 1;
+          cantidadInput.val(1); // Establecer el campo de cantidad a 1
+        }
 
         // Agregar el producto a la lista de productos seleccionados
         var newListItem = $('<li>').text(producto + ' x ' + cantidad);
@@ -454,6 +464,9 @@ $(document).ready(function() {
 
         // Calcular el precio por la cantidad y sumarlo al total
         total += precio * cantidad;
+      } else {
+        cantidadInput.prop('disabled', true); // Deshabilitar el campo de cantidad
+        cantidadInput.val(''); // Establecer la cantidad a vacío
       }
     });
 
@@ -463,10 +476,13 @@ $(document).ready(function() {
     // Calcular el cambio si ya se ingresó un monto de pago
     var montoPago = parseFloat($('#monto-pago').val());
     if (!isNaN(montoPago)) {
+    	if (montoPago === 0) {
+    	    $('#cambio').val('0.00');
+    	  } else {
       var cambio = montoPago - total;
 
       // Mostrar el cambio en el lateral
-      $('#cambio').val(cambio.toFixed(2));
+      $('#cambio').val(cambio.toFixed(2));}
     }
   });
 
@@ -476,35 +492,46 @@ $(document).ready(function() {
   });
 
   // Capturar el número del botón clicado y actualizar el valor del input
-  $('.btn-numero').click(function() {
+$('.btn-numero').click(function() {
     var numero = $(this).text();
     var montoPagoInput = $('#monto-pago');
     var montoPago = montoPagoInput.val();
 
-    if (numero === 'C') {
-      // Borrar la última cifra del monto de pago
-      montoPagoInput.val(montoPago.slice(0, -1));
+    if (montoPago === '0') {
+      montoPagoInput.val(numero);
     } else {
-      montoPagoInput.val(montoPago + numero);
-    }
-
-    if (numero === 'X') {
-      // Borrar completamente el monto de pago
-      montoPagoInput.val('');
+      if (numero === 'C') {
+        // Verificar si el monto de pago tiene más de una cifra
+        if (montoPago.length > 1) {
+          // Borrar la última cifra del monto de pago
+          montoPagoInput.val(montoPago.slice(0, -1));
+        } else {
+          // Establecer el monto de pago en 0
+          montoPagoInput.val(0);
+          numeroIngresado = false; // Reiniciar la variable de control
+        }
+      } else {
+        montoPagoInput.val(montoPago + numero);
+      }
     }
 
     montoPagoInput.trigger('input'); // Disparar evento de cambio en el input
   });
 
-  // Calcular el cambio al ingresar el monto de pago
-  $('#monto-pago').on('input', function() {
-    var montoPago = parseFloat($(this).val());
-    var total = parseFloat($('#total').val());
-    var cambio = montoPago - total;
 
-    // Mostrar el cambio en el lateral
-    $('#cambio').val(cambio.toFixed(2));
-  });
+  // Calcular el cambio al ingresar el monto de pago
+ $('#monto-pago').on('input', function() {
+	  var montoPago = parseFloat($(this).val());
+	  var total = parseFloat($('#total').val());
+	  var cambio = montoPago - total;
+
+	  if (montoPago == 0) {
+		  var cambio = 0;
+	  }
+
+	  // Mostrar el cambio en el lateral
+	  $('#cambio').val(cambio.toFixed(2));
+	});
 });
 </script>
 
