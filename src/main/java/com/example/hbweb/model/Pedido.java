@@ -24,12 +24,10 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String establecimiento;
+
 	@ManyToOne
-	@JoinColumn(name = "usuario_pedido")
-	private Usuario usuario;
-	@ManyToOne
-	@JoinColumn(name = "cliente_pedido")
-	private Cliente cliente;
+	@JoinColumn(name = "PedidoDetalle_pedido")
+	private PedidoDetalle pedidoDetalle;
 	private String estado;
 	private Date fechaPedido;
 	private Date fechaEntrega;
@@ -46,7 +44,7 @@ public class Pedido {
 		super();
 	}
 
-	public Pedido(Usuario usuario, Cliente cliente, Integer cantdidad) {
+	public Pedido(PedidoDetalle cliente, Integer cantdidad) {
 		super();
 		this.establecimiento = "Hubo Burger Online";
 		this.estado = "Pendiente";
@@ -55,8 +53,7 @@ public class Pedido {
 		this.paraLlevar = true;
 		this.cantidad = cantdidad;
 		this.importeTotal = 0.0;
-		this.usuario = usuario;
-		this.cliente = cliente;
+		this.pedidoDetalle = cliente;
 		this.listaProducto = new ArrayList<>();
 
 	}
@@ -101,13 +98,6 @@ public class Pedido {
 		this.establecimiento = establecimiento;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	public String getEstado() {
 		return estado;
@@ -149,12 +139,12 @@ public class Pedido {
 		this.listaProducto = listaProductos;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public PedidoDetalle getCliente() {
+		return pedidoDetalle;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setCliente(PedidoDetalle cliente) {
+		this.pedidoDetalle = cliente;
 	}
 
 	public List<Producto> getListaProducto() {

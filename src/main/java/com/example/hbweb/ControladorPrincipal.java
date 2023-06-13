@@ -20,11 +20,11 @@ import com.example.hbweb.form.LoginForm;
 import com.example.hbweb.form.NuevoPedidoForm;
 import com.example.hbweb.form.ProductoForm;
 import com.example.hbweb.form.RegistroForm;
-import com.example.hbweb.model.Cliente;
+import com.example.hbweb.model.PedidoDetalle;
 import com.example.hbweb.model.Pedido;
 import com.example.hbweb.model.Producto;
 import com.example.hbweb.model.Usuario;
-import com.example.hbweb.repos.ClienteRepositorio;
+import com.example.hbweb.repos.PedidoDetalleRepositorio;
 import com.example.hbweb.repos.PedidoRepositorio;
 import com.example.hbweb.repos.ProductoRepositorio;
 import com.example.hbweb.repos.RolRepositorio;
@@ -45,7 +45,7 @@ public class ControladorPrincipal implements ErrorController {
 	@Autowired
 	private PedidoRepositorio pedidioRepositorio;
 	@Autowired
-	private ClienteRepositorio clienteRepositorio;
+	private PedidoDetalleRepositorio pedidoDetalleRepositorio;
 
 	// gets
 	/*
@@ -426,11 +426,11 @@ public class ControladorPrincipal implements ErrorController {
 		System.out.println("Esto es lo que llega del formulario:" + cantidadesSeleccionadas);
 
 		Usuario usuarioPedido = usuarioRepositorio.findByEmail((String) session.getAttribute("usuario"));
-		Cliente nuevoCliente = new Cliente();
-		clienteRepositorio.save(nuevoCliente);
+		PedidoDetalle nuevoPedidoDetalle = new PedidoDetalle(usuarioPedido,0.0);
+		pedidoDetalleRepositorio.save(nuevoPedidoDetalle);
 		int posCant = 0;
 		for (String idProducto : listaProductosById) {
-			Pedido nuevoPedido = new Pedido(usuarioPedido, nuevoCliente, cantidadesSeleccionadas.get(posCant));
+			Pedido nuevoPedido = new Pedido(nuevoPedidoDetalle, cantidadesSeleccionadas.get(posCant));
 
 			Producto producto = productoRepositorio.findById(Integer.parseInt(idProducto));
 			// formateo de Importe:
@@ -457,7 +457,7 @@ public class ControladorPrincipal implements ErrorController {
 	public String showListaPedidos(Model modelo, HttpSession session, LoginForm loginForm) {
 		if (session != null) {
 			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2") || session.getAttribute("rol").equals("3") || session.getAttribute("rol").equals("4")) {
-				Iterable<Object[]> itConsulta = pedidioRepositorio.PedidosByClienteQuerry();
+				Iterable<Object[]> itConsulta = pedidioRepositorio.pedidosByPedidoDetalleQuerry();
 				List<Object[]> listaConsulta = new ArrayList<Object[]>();
 				itConsulta.forEach(listaConsulta::add);
 
@@ -480,13 +480,14 @@ public class ControladorPrincipal implements ErrorController {
 	public String verDetallePedido(@PathVariable String id, Model modelo, HttpSession session, LoginForm loginForm) {
 		if (session != null) {
 			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2") || session.getAttribute("rol").equals("3") || session.getAttribute("rol").equals("4")) {
-				Iterable<Object[]> itConsulta = pedidioRepositorio.ListaDetalleByClienteQuerry(Integer.parseInt(id));
+				Iterable<Object[]> itConsulta = pedidioRepositorio.listaDetalleByPedidoDetalleQuerry(Integer.parseInt(id));
 				List<Object[]> listaConsulta = new ArrayList<Object[]>();
 				itConsulta.forEach(listaConsulta::add);
 				modelo.addAttribute("listaConsulta", listaConsulta);
 
-				Double totalPedido = pedidioRepositorio.TotalImporteByClienteIdQuerry(Integer.parseInt(id));
-				modelo.addAttribute("totalPedido", totalPedido);
+				PedidoDetalle pedidoInfo = pedidoDetalleRepositorio.findById(Integer.parseInt(id));
+				modelo.addAttribute("pedidoInfo", pedidoInfo);
+				
 				modelo.addAttribute("id", id);
 				return "/detallepedido";
 			} else {

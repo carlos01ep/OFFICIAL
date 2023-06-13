@@ -43,9 +43,9 @@ public class HbwebApplication {
 				Usuario usuario2 = new Usuario("Usuario01ep@gmail.com", "asdASD123", "12312312W", "usuario1", "apellidoUsuario", "123123123",
 						rol2);
 				Usuario usuario3 = new Usuario("ddd01ep@gmail.com", "asdASD123", "12312312W", "admin1", "apellidoAdmin", "123123123",
-						rol1);
+						rol4);
 				Usuario usuario4 = new Usuario("uuu01ep@gmail.com", "asdASD123", "12312312W", "usuario1", "apellidoUsuario", "123123123",
-						rol2);
+						rol3);
 				
 				usuarioRepositorio.save(usuario1);
 				usuarioRepositorio.save(usuario2);

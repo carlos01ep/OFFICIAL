@@ -27,7 +27,9 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario")
 	private List<Producto> listaProductos;
 	@OneToMany(mappedBy = "usuario")
-	private List<Pedido> listaPedido;
+	private List<PedidoDetalle> listaPedidoDetalle;
+	@OneToMany(mappedBy = "usuarioDelivery")
+	private List<PedidoDetalle> listaPedidoDetalledDelivery;
 
 	public Usuario() {
 		super();
@@ -109,12 +111,20 @@ public class Usuario {
 		this.listaProductos = listaProductos;
 	}
 
-	public List<Pedido> getListaPedido() {
-		return listaPedido;
+	public List<PedidoDetalle> getListaPedidoDetalle() {
+		return listaPedidoDetalle;
 	}
 
-	public void setListaPedido(List<Pedido> listaPedido) {
-		this.listaPedido = listaPedido;
+	public void setListaPedidoDetalle(List<PedidoDetalle> listaPedidoDetalle) {
+		this.listaPedidoDetalle = listaPedidoDetalle;
+	}
+	
+	public List<PedidoDetalle> getListaPedidoDetalledDelivery() {
+		return listaPedidoDetalledDelivery;
+	}
+
+	public void setListaPedidoDetalledDelivery(List<PedidoDetalle> listaPedidoDetalledDelivery) {
+		this.listaPedidoDetalledDelivery = listaPedidoDetalledDelivery;
 	}
 
 	@Override

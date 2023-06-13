@@ -164,11 +164,11 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 					<h1 class="display-6 fw-bold ">NUEVO PEDIDO</h1>
 				</div>
 				<form action="#" th:action="@{nuevopedidodependiente}"
-					th:object="${nuevoPedidoForm}" method="post">
+					th:object="${nuevoPedidoFormDependiente}" method="post">
 					<div class="container-fluid h-custom">
 						<div class="row d-flex justify-content-center align-items-center">
 							<!-- image -->
-							<div class="col-md-9 col-lg-9 col-xl-8 bg-light align-self-start">
+							<div class="col-md-8 col-lg-8 col-xl-7 bg-light align-self-start">
 								<div class="divider d-flex align-items-center mt-4">
 									<p class="text-center fw-bold mx-3 mb-0">SELECCIÓN DE
 										PRODUCTOS</p>
@@ -270,71 +270,100 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 							</div>
 
 							<div
-								class="col-md-3 col-lg-3 col-xl-3 mx-4 bg-light align-self-start">
+								class="col-md-8 col-lg-8 col-xl-4 mx-4 bg-light align-self-start">
 								<div class="divider d-flex align-items-center my-4">
-									<p class="text-center fw-bold mx-3 mb-0">CALCULAR CAMBIO</p>
+									<p class="text-center fw-bold mx-3 mb-0">PRODUCTOS
+										SELECCIONADOS</p>
 								</div>
 								<div id="info-productos">
-									<h6>Productos seleccionados:</h6>
 									<ul id="lista-productos"></ul>
-									<h6>
-										Total: <span id="total"></span> €
-									</h6>
-									<hr>
-									<div>
-
-										<div
-											class="cantidad-input d-flex justify-content-center align-items-center my-4 px-2">
-											<label class="px-2" for="monto-pago">Monto de pago:</label> <input
-												type="number" id="monto-pago" min="0" step="0.01"
-												class="form-control form-control-sm col-4 custom-input"
-												name="montoPago" /> <label class="px-2">€</label>
-										</div>
-
-										<table
-											class="table-responsive d-flex align-items-center justify-content-center">
-											<tr>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">0</button></td>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">1</button></td>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">2</button></td>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">3</button></td>
-											</tr>
-											<tr>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">C</button></td>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">4</button></td>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">5</button></td>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">6</button></td>
-											</tr>
-											<tr>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">X</button></td>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">7</button></td>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">8</button></td>
-												<td><button type="button"
-														class="btn btn-secondary btn-numero btn-lg">9</button></td>
-											</tr>
-										</table>
-									</div>
-									<hr>
 									<div class="cantidad-input d-flex justify-content-center my-2">
-										<label class="px-2">Cambio:</label> <input type="text"
-											id="cambio" readonly
-											class="form-control form-control-sm col-4 custom-input"
-											name="cambio" /> <label class="px-2">€</label>
+										<label class="px-2">Total:</label> <input type="text"
+											id="total" th:name="total" readonly
+											class="form-control form-control-sm col-4 custom-input" /> <label
+											class="px-2">€</label>
 									</div>
+									<hr>
+
+									<div class="accordion" id="accordionPagoEfectivo">
+										<div class="accordion-item">
+											<h2 class="accordion-header" id="headingPagoEfectivo">
+												<button class="accordion-button collapsed" type="button"
+													data-bs-toggle="collapse"
+													data-bs-target="#collapsePagoEfectivo"
+													aria-expanded="false" aria-controls="collapsePagoEfectivo">
+													PAGO EN EFECTIVO</button>
+											</h2>
+											<div id="collapsePagoEfectivo"
+												class="accordion-collapse collapse"
+												aria-labelledby="headingPagoEfectivo"
+												data-bs-parent="#accordionPagoEfectivo">
+												<div class="accordion-body">
+													<div
+														class="cantidad-input d-flex justify-content-center align-items-center my-4 px-2">
+														<label class="px-2" for="monto-pago">Monto de
+															pago:</label> <input type="text" id="monto-pago" min="0"
+															step="0.01"
+															class="form-control form-control-sm col-4 custom-input"
+															th:name="importePagado" /> <label class="px-2">€</label>
+													</div>
+
+													<table
+														class="table-responsive d-flex align-items-center justify-content-center">
+														<tr>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">0</button></td>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">1</button></td>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">2</button></td>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">3</button></td>
+														</tr>
+														<tr>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">C</button></td>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">4</button></td>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">5</button></td>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">6</button></td>
+														</tr>
+														<tr>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">X</button></td>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">7</button></td>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">8</button></td>
+															<td><button type="button"
+																	class="btn btn-secondary btn-numero btn-lg">9</button></td>
+														</tr>
+													</table>
+												</div>
+												<hr>
+												<div
+													class="cantidad-input d-flex justify-content-center my-2">
+													<label class="px-2">Cambio:</label> <input type="text"
+														id="cambio" readonly
+														class="form-control form-control-sm col-4 custom-input"
+														th:name="cambio" /> <label class="px-2">€</label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
 								</div>
+								<!-- Mostrar el mensaje de error genérico -->
+								<div class="text-danger" th:if="${session.containsKey('error')}"
+									th:text="${error}"></div>
+
+
 								<div class="divider d-flex align-items-center my-3"></div>
 								<div class="text-center pt-0 my-2">
+								
 									<button type="submit" class="btn hubobutton">FINALIZAR
 										PEDIDO</button>
 								</div>
@@ -400,6 +429,10 @@ $(document).ready(function() {
 </script>
 	<script>
 $(document).ready(function() {
+
+	// Establecer los campos "cambio" y "monto pago" a cero
+	  $('#cambio').val('0.00');
+	  $('#monto-pago').val('0.00');
   // Obtener los checkboxes de los productos
   var checkboxes = $('#tabla-productos-par input[type="checkbox"], #tabla-productos-impar input[type="checkbox"]');
 
@@ -425,7 +458,7 @@ $(document).ready(function() {
     });
 
     // Actualizar el total en el lateral
-    $('#total').text(total.toFixed(2));
+    $('#total').val(total.toFixed(2));
 
     // Calcular el cambio si ya se ingresó un monto de pago
     var montoPago = parseFloat($('#monto-pago').val());
@@ -455,21 +488,26 @@ $(document).ready(function() {
       montoPagoInput.val(montoPago + numero);
     }
 
+    if (numero === 'X') {
+      // Borrar completamente el monto de pago
+      montoPagoInput.val('');
+    }
+
     montoPagoInput.trigger('input'); // Disparar evento de cambio en el input
   });
 
   // Calcular el cambio al ingresar el monto de pago
   $('#monto-pago').on('input', function() {
     var montoPago = parseFloat($(this).val());
-    var total = parseFloat($('#total').text());
+    var total = parseFloat($('#total').val());
     var cambio = montoPago - total;
 
     // Mostrar el cambio en el lateral
     $('#cambio').val(cambio.toFixed(2));
   });
 });
-
 </script>
+
 
 
 

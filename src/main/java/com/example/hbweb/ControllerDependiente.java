@@ -22,11 +22,11 @@ import com.example.hbweb.form.NuevoPedidoForm;
 import com.example.hbweb.form.NuevoPedidoFormDependiente;
 import com.example.hbweb.form.ProductoForm;
 import com.example.hbweb.form.RegistroForm;
-import com.example.hbweb.model.Cliente;
+import com.example.hbweb.model.PedidoDetalle;
 import com.example.hbweb.model.Pedido;
 import com.example.hbweb.model.Producto;
 import com.example.hbweb.model.Usuario;
-import com.example.hbweb.repos.ClienteRepositorio;
+import com.example.hbweb.repos.PedidoDetalleRepositorio;
 import com.example.hbweb.repos.PedidoRepositorio;
 import com.example.hbweb.repos.ProductoRepositorio;
 import com.example.hbweb.repos.RolRepositorio;
@@ -51,7 +51,7 @@ public class ControllerDependiente {
 	@Autowired
 	private PedidoRepositorio pedidioRepositorio;
 	@Autowired
-	private ClienteRepositorio clienteRepositorio;
+	private PedidoDetalleRepositorio clienteRepositorio;
 
 
 	@GetMapping("/homedependiente")
@@ -83,57 +83,62 @@ public class ControllerDependiente {
 	}
 	// nuevopedido
 
-		@GetMapping("/nuevopedidodependiente")
-		public String nuevoPedido(Model modelo, HttpSession session, LoginForm loginForm) {
-			if (session != null) {
-				if (session.getAttribute("rol").equals("3")) {
-					Iterable<Producto> itProducto = productoRepositorio.findByStockTrue();
-					// Convertimos
-					List<Producto> listaProducto = new ArrayList<>();
-					itProducto.forEach(listaProducto::add);
+	@GetMapping("/nuevopedidodependiente")
+	public String nuevoPedido(Model modelo, HttpSession session) {
+	    if (session != null) {
+	        if (session.getAttribute("rol").equals("3")) {
+	            cargarProductos(modelo);
+	            modelo.addAttribute("loginForm", new LoginForm()); // Agregar el formulario al modelo
+	            return "/nuevopedidodependiente";
+	        } else {
+	            session.setAttribute("rol", "");
+	            session.invalidate();
+	            return "/login";
+	        }
+	    } else {
+	        return "/login";
+	    }
+	}
 
-					List<Producto> listaProductoPar = new ArrayList<>();
-					List<Producto> listaProductoImpar = new ArrayList<>();
-
-					if (listaProducto.size() % 2 == 0) {
-					    listaProductoPar = listaProducto.subList(0, listaProducto.size() / 2);
-					    listaProductoImpar = listaProducto.subList(listaProducto.size() / 2, listaProducto.size());
-					} else {
-					    listaProductoPar = listaProducto.subList(0, listaProducto.size() / 2 + 1);
-					    listaProductoImpar = listaProducto.subList(listaProducto.size() / 2 + 1, listaProducto.size());
-					}
-
-					modelo.addAttribute("listaProductoPar", listaProductoPar);
-					modelo.addAttribute("listaProductoImpar", listaProductoImpar);
-					return "/nuevopedidodependiente";
-				} else {
-					session.setAttribute("rol", "");
-					session.invalidate();
-					return "/login";
-				}
-			} else {
-				return "/login";
-			}
-
-		}
-
-		@PostMapping(path = "/nuevopedidodependiente")
-		@Transactional
-		public String checkPedido(@Valid NuevoPedidoFormDependiente nuevoPedidoForm, BindingResult bindingResult, Model modelo, HttpSession session) {
-		    if (bindingResult.hasErrors()) {
-		        System.out.println("El formulario tiene errores");
-		        return "/nuevopedidodependiente";
-		    }
+	@PostMapping(path = "/nuevopedidodependiente")
+	@Transactional
+	public String checkPedido(@Valid NuevoPedidoFormDependiente nuevoPedidoFormDependiente, BindingResult bindingResult, Model modelo, HttpSession session) {
+	    if (bindingResult.hasErrors()) {
+	        System.out.println("El formulario tiene errores");
+	        modelo.addAttribute("bindingResult", bindingResult);
+	        modelo.addAttribute("error", "Por favor, corrija los errores en el pedido.");
+	        cargarProductos(modelo); // Agregar la carga de productos nuevamente
+	        return "/nuevopedidodependiente";
+	    }
 		    
-		    List<String> listaProductosByIdPares = nuevoPedidoForm.getIdProductosPares();
-		    List<String> listaProductosByIdImpares = nuevoPedidoForm.getIdProductosImpares();
-		    List<String> listaCantidades = nuevoPedidoForm.getCantidadProductos();
-		    String cambio = nuevoPedidoForm.getCambio();
+		    List<String> listaProductosByIdPares = nuevoPedidoFormDependiente.getIdProductosPares();
+		    List<String> listaProductosByIdImpares = nuevoPedidoFormDependiente.getIdProductosImpares();
+		    List<String> listaCantidades = nuevoPedidoFormDependiente.getCantidadProductos();
+		    
+		    double cambio= 0.0;
+		    double total= 0.0;
+		    double importePagado= 0.0;
+		    if (nuevoPedidoFormDependiente.getCambio() != null && !nuevoPedidoFormDependiente.getCambio().isEmpty()) {
+		    	  cambio = Double.parseDouble(nuevoPedidoFormDependiente.getCambio());
+	
+		    }
+		    if (nuevoPedidoFormDependiente.getTotal() != null && !nuevoPedidoFormDependiente.getTotal().isEmpty()) {
+		    	total = Double.parseDouble(nuevoPedidoFormDependiente.getTotal());
+	
+		    }
+		    if (nuevoPedidoFormDependiente.getImportePagado() != null && !nuevoPedidoFormDependiente.getImportePagado().isEmpty()) {
+		    	importePagado = Double.parseDouble(nuevoPedidoFormDependiente.getImportePagado());
+	
+		    }
+
 		    
 		    System.out.println("Esto es lo que llega del formulario (ID productos pares): " + listaProductosByIdPares);
 		    System.out.println("Esto es lo que llega del formulario (ID productos impares): " + listaProductosByIdImpares);
 		    System.out.println("Esto es lo que llega del formulario (cantidades): " + listaCantidades);
 		    System.out.println("Esto es lo que llega del formulario (cambio): " + cambio);
+		   
+		    System.out.println("Esto es lo que llega del formulario (total): " + total);
+		    System.out.println("Esto es lo que llega del formulario (importePagado): " + importePagado);
 		    
 		    // Filtrar las cantidades y eliminar vacíos o ceros
 		    List<Integer> cantidadesSeleccionadas = new ArrayList<>();
@@ -145,8 +150,16 @@ public class ControllerDependiente {
 		    System.out.println("Esto es lo que llega del formulario (cantidades filtradas): " + cantidadesSeleccionadas);
 		    
 		    Usuario usuarioPedido = usuarioRepositorio.findByEmail((String) session.getAttribute("usuario"));
-		    Cliente nuevoCliente = new Cliente();
-		    clienteRepositorio.save(nuevoCliente);
+		   
+		  
+
+		    
+		    
+		    PedidoDetalle nuevoPedidoDetalle = new PedidoDetalle(usuarioPedido, total);
+		    nuevoPedidoDetalle.setEstado("abierto");
+		    nuevoPedidoDetalle.setCambio(cambio);
+		    nuevoPedidoDetalle.setImportePagado(importePagado);
+		    clienteRepositorio.save(nuevoPedidoDetalle);
 		    List<String> listaProductos = new ArrayList<>();
 
 		    if (listaProductosByIdPares != null) {
@@ -158,7 +171,7 @@ public class ControllerDependiente {
 		    }
 		    int posCant = 0;
 		    for (String idProducto : listaProductos) {
-		        Pedido nuevoPedido = new Pedido(usuarioPedido, nuevoCliente, cantidadesSeleccionadas.get(posCant));
+		        Pedido nuevoPedido = new Pedido(nuevoPedidoDetalle, cantidadesSeleccionadas.get(posCant));
 		        Producto producto = productoRepositorio.findById(Integer.parseInt(idProducto));
 		        
 		        nuevoPedido.setImporteTotal(cantidadesSeleccionadas.get(posCant).doubleValue() * producto.getPrecio());
@@ -173,5 +186,23 @@ public class ControllerDependiente {
 		    
 		    return "redirect:/listapedido";
 		}
+		private void cargarProductos(Model modelo) {
+		    Iterable<Producto> itProducto = productoRepositorio.findByStockTrue();
+		    List<Producto> listaProducto = new ArrayList<>();
+		    itProducto.forEach(listaProducto::add);
 
+		    List<Producto> listaProductoPar = new ArrayList<>();
+		    List<Producto> listaProductoImpar = new ArrayList<>();
+
+		    if (listaProducto.size() % 2 == 0) {
+		        listaProductoPar = listaProducto.subList(0, listaProducto.size() / 2);
+		        listaProductoImpar = listaProducto.subList(listaProducto.size() / 2, listaProducto.size());
+		    } else {
+		        listaProductoPar = listaProducto.subList(0, listaProducto.size() / 2 + 1);
+		        listaProductoImpar = listaProducto.subList(listaProducto.size() / 2 + 1, listaProducto.size());
+		    }
+
+		    modelo.addAttribute("listaProductoPar", listaProductoPar);
+		    modelo.addAttribute("listaProductoImpar", listaProductoImpar);
+		}
 }
