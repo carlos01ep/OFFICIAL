@@ -99,6 +99,10 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
   width: 100%;
   padding: 0.375rem 0.75rem; 
 }*/
+.sin-estilo {
+    color: inherit; /* Utiliza el color heredado para el enlace */
+    text-decoration: none; /* Elimina la línea de subrayado */
+}
 </style>
 </head>
 <body>
@@ -140,7 +144,7 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
 					<li class="nav-item"
 						th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente'}"><a
-						class="nav-link" th:href="@{/nuevopedido}">Nuevo Pedido</a></li>
+						class="nav-link" th:href="@{/nuevopedidodependiente}">Nuevo Pedido</a></li>
 					<li class="nav-item"
 						th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente' || session.rol_usuario == 'usuariodelivery'}"><a
 						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
@@ -198,7 +202,7 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 													</td>
 													<td>
 														<ul class="list-unstyled">
-															<li class=""><a class="producto-nombre"
+															<li class=""><a class="producto-nombre sin-estilo"
 																th:href="@{/detalleproducto/{id}(id=${productoPar.id})}"
 																th:text="${productoPar.nombre}">Nombre Producto Par</a></li>
 															<li><span th:text="${productoPar.precio} + ' €'"
@@ -244,7 +248,7 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 													</td>
 													<td>
 														<ul class="list-unstyled">
-															<li class=""><a class="producto-nombre"
+															<li class=""><a class="producto-nombre sin-estilo"
 																th:href="@{/detalleproducto/{id}(id=${productoImpar.id})}"
 																th:text="${productoImpar.nombre}">Nombre Producto
 																	Impar</a></li>
@@ -285,7 +289,7 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 											class="px-2">€</label>
 									</div>
 									<hr>
-
+<div th:if="${session.rol_usuario == 'usuariodependiente'}">
 									<div class="accordion" id="accordionPagoEfectivo">
 										<div class="accordion-item">
 											<h2 class="accordion-header" id="headingPagoEfectivo">
@@ -354,7 +358,7 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 											</div>
 										</div>
 									</div>
-
+	</div>
 
 								</div>
 								<!-- Mostrar el mensaje de error genérico -->
@@ -363,10 +367,10 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 
 
 								<div class="divider d-flex align-items-center my-3"></div>
+								
 								<div class="text-center pt-0 my-2">
 
-									<button type="submit" class="btn hubobutton">FINALIZAR
-										PEDIDO</button>
+								 <button type="submit" class="btn hubobutton" th:text="${session.rol_usuario == 'usuariodependiente' ? 'FINALIZAR PEDIDO' : 'PAGAR PEDIDO'}"></button>
 								</div>
 								<div class="divider d-flex align-items-center my-3"></div>
 							</div>

@@ -91,12 +91,16 @@ public class PedidoDetalle {
 
 
 
+
+
+
+
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", nombre=" + nombre + ", listaPedido=" + listaPedido + "]";
+		return "PedidoDetalle [id=" + id + ", nombre=" + nombre + ", estado=" + estado + ", total=" + total
+				+ ", importePagado=" + importePagado + ", cambio=" + cambio + ", descuento=" + descuento + ", usuario="
+				+ usuario + ", usuarioDelivery=" + usuarioDelivery + ", listaPedido=" + listaPedido + "]";
 	}
-
-
 
 	public String getEstado() {
 		return estado;

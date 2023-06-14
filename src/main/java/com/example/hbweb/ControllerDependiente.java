@@ -44,14 +44,13 @@ public class ControllerDependiente {
 
 	@Autowired 
 	private UsuarioRepositorio usuarioRepositorio;
-	@Autowired
-	private RolRepositorio rolRepositorio;
+
 	@Autowired
 	private ProductoRepositorio productoRepositorio;
 	@Autowired
 	private PedidoRepositorio pedidioRepositorio;
 	@Autowired
-	private PedidoDetalleRepositorio clienteRepositorio;
+	private PedidoDetalleRepositorio pedidoDetalleRepositorio;
 
 
 	@GetMapping("/homedependiente")
@@ -86,9 +85,9 @@ public class ControllerDependiente {
 	@GetMapping("/nuevopedidodependiente")
 	public String nuevoPedido(Model modelo, HttpSession session) {
 	    if (session != null) {
-	        if (session.getAttribute("rol").equals("3")) {
+	        if (session.getAttribute("rol").equals("2") || session.getAttribute("rol").equals("3")) {
 	            cargarProductos(modelo);
-	            modelo.addAttribute("loginForm", new LoginForm()); // Agregar el formulario al modelo
+	            //modelo.addAttribute("loginForm", new LoginForm()); // Agregar el formulario al modelo
 	            return "/nuevopedidodependiente";
 	        } else {
 	            session.setAttribute("rol", "");
@@ -156,10 +155,15 @@ public class ControllerDependiente {
 		    
 		    
 		    PedidoDetalle nuevoPedidoDetalle = new PedidoDetalle(usuarioPedido, total);
-		    nuevoPedidoDetalle.setEstado("abierto");
+		    if (session.getAttribute("rol").equals("2")) {
+		    	 nuevoPedidoDetalle.setEstado("pendiente de pago");
+		    }else{
+		    	nuevoPedidoDetalle.setEstado("abierto");
+		    }
 		    nuevoPedidoDetalle.setCambio(cambio);
 		    nuevoPedidoDetalle.setImportePagado(importePagado);
-		    clienteRepositorio.save(nuevoPedidoDetalle);
+		    PedidoDetalle nuevoPedidoDetalle2 = pedidoDetalleRepositorio.save(nuevoPedidoDetalle);
+
 		    List<String> listaProductos = new ArrayList<>();
 
 		    if (listaProductosByIdPares != null) {
@@ -183,8 +187,22 @@ public class ControllerDependiente {
 		        posCant++;
 		    }
 
-		    
-		    return "redirect:/listapedido";
+		    if (session.getAttribute("rol").equals("2")) {
+
+		    	modelo.addAttribute("nuevoPedidoDetalle2", nuevoPedidoDetalle2);
+		    	
+		    	Iterable<Object[]> itConsulta = pedidioRepositorio.listaDetalleByPedidoDetalleQuerry(nuevoPedidoDetalle2.getId());
+				List<Object[]> listaConsulta = new ArrayList<Object[]>();
+				itConsulta.forEach(listaConsulta::add);
+				modelo.addAttribute("listaConsulta", listaConsulta);
+				
+				modelo.addAttribute("nuevoPedidoDetalle2", nuevoPedidoDetalle2);
+				
+		    	 return "/pagopedido";
+		    }else{
+		    	 return "redirect:/listapedido";
+		    }
+		   
 		}
 		private void cargarProductos(Model modelo) {
 		    Iterable<Producto> itProducto = productoRepositorio.findByStockTrue();

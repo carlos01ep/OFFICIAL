@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.hbweb.form.BuscarProducto;
 import com.example.hbweb.form.LoginForm;
 import com.example.hbweb.form.NuevoPedidoForm;
+import com.example.hbweb.form.PagoPedidoForm;
 import com.example.hbweb.form.ProductoForm;
 import com.example.hbweb.form.RegistroForm;
 import com.example.hbweb.model.PedidoDetalle;
@@ -376,7 +377,7 @@ public class ControladorPrincipal implements ErrorController {
 	@GetMapping("/nuevopedido")
 	public String nuevoPedido(NuevoPedidoForm nuevoPedidoForm, Model modelo, HttpSession session, LoginForm loginForm) {
 		if (session != null) {
-			if (session.getAttribute("rol").equals("2")) {
+			if (session.getAttribute("rol").equals("2") || session.getAttribute("rol").equals("3")) {
 				Iterable<Producto> itProducto = productoRepositorio.findByStockTrue();
 				// Convertimos
 				List<Producto> listaProducto = new ArrayList<Producto>();
@@ -455,29 +456,31 @@ public class ControladorPrincipal implements ErrorController {
 	// lista de pedidos
 	@GetMapping("/listapedido")
 	public String showListaPedidos(Model modelo, HttpSession session, LoginForm loginForm) {
-		if (session != null) {
-			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2") || session.getAttribute("rol").equals("3") || session.getAttribute("rol").equals("4")) {
-				Iterable<Object[]> itConsulta = pedidioRepositorio.pedidosByPedidoDetalleQuerry();
-				List<Object[]> listaConsulta = new ArrayList<Object[]>();
-				itConsulta.forEach(listaConsulta::add);
+	    if (session != null) {
+	        String rol = (String) session.getAttribute("rol");
+	        String email = (String) session.getAttribute("usuario");
+	        List<PedidoDetalle> listaConsulta = new ArrayList<>();
 
-				modelo.addAttribute("listaConsulta", listaConsulta);
+	        if (rol.equals("1")) {
+	            listaConsulta = (List<PedidoDetalle>) pedidoDetalleRepositorio.findAll();
+	        } else if (rol.equals("2") || rol.equals("3") || rol.equals("4")) {
+	        	Usuario usuarioLoged = usuarioRepositorio.findByEmail(email);
+	            listaConsulta = (List<PedidoDetalle>) pedidoDetalleRepositorio.findAllByUsuario(usuarioLoged);
+	        } else {
+	            session.setAttribute("rol", "");
+	            session.invalidate();
+	            return "/login";
+	        }
 
-				return "/listapedido";
-			} else {
-				session.setAttribute("rol", "");
-				session.invalidate();
-				return "/login";
-			}
-		} else {
-			return "/login";
-		}
-
+	        modelo.addAttribute("listaConsulta", listaConsulta);
+	        return "/listapedido";
+	    } else {
+	        return "/login";
+	    }
 	}
-
 	// Detalle de pedido
 	@GetMapping("/detallepedido/{id}")
-	public String verDetallePedido(@PathVariable String id, Model modelo, HttpSession session, LoginForm loginForm) {
+	public String verDetallePedido(PagoPedidoForm pagoPedidoForm, @PathVariable String id, Model modelo, HttpSession session, LoginForm loginForm) {
 		if (session != null) {
 			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2") || session.getAttribute("rol").equals("3") || session.getAttribute("rol").equals("4")) {
 				Iterable<Object[]> itConsulta = pedidioRepositorio.listaDetalleByPedidoDetalleQuerry(Integer.parseInt(id));
@@ -499,6 +502,14 @@ public class ControladorPrincipal implements ErrorController {
 			return "/login";
 		}
 
+	}
+	@PostMapping("/detallepedido/{id}")
+	@Transactional
+	public String checkDetallePedidoPagar(@Valid PagoPedidoForm pagoPedidoForm, BindingResult bindingResult, Model modelo,
+			HttpSession session) {
+
+		pedidoDetalleRepositorio.setEstadoById("pagado", pagoPedidoForm.getId());
+		return "redirect:/listapedido";
 	}
 
 	// Editar producto

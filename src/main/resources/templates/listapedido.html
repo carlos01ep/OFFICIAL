@@ -19,7 +19,7 @@
 
 </head>
 <body>
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<img src="/images/logomain.png" class="img img-main" alt="logo" /> <a
 				class="navbar-brand" th:href="@{/homeadmin}"
@@ -57,7 +57,7 @@
 						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
 					<li class="nav-item"
 						th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente'}"><a
-						class="nav-link" th:href="@{/nuevopedido}">Nuevo Pedido</a></li>
+						class="nav-link" th:href="@{/nuevopedidodependiente}">Nuevo Pedido</a></li>
 					<li class="nav-item"
 						th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente' || session.rol_usuario == 'usuariodelivery'}"><a
 						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
@@ -93,20 +93,20 @@
 							<thead>
 								<tr>
 									<th style="width: 200px;">ID Pedido</th>
-									<th class="text-center" style="width: 300px;">Total unidades</th>
+									<th class="text-center" style="width: 300px;">Estado</th>
 									<th class="text-right" style="width: 200px;">Importe total</th>
 									<th class="text-center" style="width: 150px;">Ver detalle</th>
 								</tr>
 							</thead>
 							<tbody>
-								<!-- Iterar a través de los productos de tu modelo de datos -->
-								<th:block th:each="pedido:${listaConsulta}">
+								<!-- Iterar a través de los pedidos en listaConsulta -->
+								<th:block th:each="pedido : ${listaConsulta}">
 									<tr>
-										<td th:text="${pedido[0]}"></td>
-										<td class="text-center" th:text="${pedido[1]}"></td>
-										<td class="text-right" th:text="${pedido[2]} + ' €'"  ></td>
+										<td th:text="${pedido.id}"></td>
+										<td class="text-center" th:text="${pedido.estado}"></td>
+										<td class="text-right" th:text="${pedido.total} + ' €'"></td>
 										<td class="text-center"><a
-											th:href="@{/detallepedido/{id}(id=${pedido[0]})}"
+											th:href="@{/detallepedido/{id}(id=${pedido.id})}"
 											title="Ver detalle"> <img class="img-list"
 												src="/images/detallemini.png" alt="Ver detalle">
 										</a></td>
@@ -119,7 +119,7 @@
 				</div>
 
 			</div>
-				<footer class="mt-auto">
+			<footer class="mt-auto">
 				<ul>
 					<li><a href="#"> Contacto:</a> carlos01ep@gmail.com</li>
 					<li><a href="#">Términos y condiciones</a></li>
