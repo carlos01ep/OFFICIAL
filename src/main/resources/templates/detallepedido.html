@@ -116,11 +116,22 @@
 								</th:block>
 							</tbody>
 							<tfoot>
-								<tr>
+							<tr>
 									<th colspan="3">Total de la orden:</th>
 									<td class="text-right" colspan="1"
 										th:text="${pedidoInfo.total} + ' €'"></td>
 
+								</tr>
+								<tr th:if="${pedidoInfo.importePagado != 0}">
+									<th colspan="3">Importe en efectivo:</th>
+									<td class="text-right" colspan="1"
+										th:text="${pedidoInfo.importePagado} + ' €'"></td>
+								</tr>
+								
+								<tr th:if="${pedidoInfo.cambio != 0}">
+									<th colspan="3">Cambio:</th>
+									<td class="text-right" colspan="1"
+										th:text="${pedidoInfo.cambio} + ' €'"></td>
 								</tr>
 							</tfoot>
 						</table>
@@ -145,69 +156,71 @@
 							<div id="collapseOne" class="collapse"
 								aria-labelledby="headingOne" data-bs-parent="#accordion">
 								<div class="card-body">
-								<form action="#" th:action="@{detallepedido}"
-						th:object="${PagoPedidoForm}" method="post">
-						<div class="divider d-flex align-items-center my-4">
-							<p class="text-center fw-bold mx-3 mb-0">PAGO CON TARJETA DE
-								CRÉDITO</p>
-						</div>
+									<form action="#" th:action="@{detallepedido}"
+										th:object="${PagoPedidoForm}" method="post">
+										<div class="divider d-flex align-items-center my-4">
+											<p class="text-center fw-bold mx-3 mb-0">PAGO CON TARJETA
+												DE CRÉDITO</p>
+										</div>
 
-						<div class="row">
-							<div class="col-md-6">
-								<label for="cardholderName" class="form-label">Nombre
-									del titular de la tarjeta</label> <input type="text"
-									class="form-control" id="cardholderName" name="cardholderName"
-									placeholder="Nombre del titular">
-							</div>
-							<div class="col-md-6">
-								<label for="cardNumber" class="form-label">Número de
-									tarjeta</label> <input type="text" class="form-control" id="cardNumber"
-									name="cardNumber" placeholder="Número de tarjeta">
-							</div>
-							<div class="col-md-6">
-								<label for="expirationDate" class="form-label">Fecha de
-									vencimiento</label> <input type="text" class="form-control"
-									id="expirationDate" name="expirationDate" placeholder="MM/AA">
-							</div>
-							<div class="col-md-6">
-								<label for="cvv" class="form-label">CVV</label> <input
-									type="text" class="form-control" id="cvv" name="cvv"
-									placeholder="CVV">
-							</div>
-						</div>
-						<input type="hidden" th:id="id" name="id"
-							th:value="${pedidoInfo.id}" />
-						<hr>
-						<div class="divider d-flex align-items-center my-3"></div>
+										<div class="row">
+											<div class="col-md-6">
+												<label for="cardholderName" class="form-label">Nombre
+													del titular de la tarjeta</label> <input type="text"
+													class="form-control" id="cardholderName"
+													name="cardholderName" placeholder="Nombre del titular">
+											</div>
+											<div class="col-md-6">
+												<label for="cardNumber" class="form-label">Número de
+													tarjeta</label> <input type="text" class="form-control"
+													id="cardNumber" name="cardNumber"
+													placeholder="Número de tarjeta">
+											</div>
+											<div class="col-md-6">
+												<label for="expirationDate" class="form-label">Fecha
+													de vencimiento</label> <input type="text" class="form-control"
+													id="expirationDate" name="expirationDate"
+													placeholder="MM/AA">
+											</div>
+											<div class="col-md-6">
+												<label for="cvv" class="form-label">CVV</label> <input
+													type="text" class="form-control" id="cvv" name="cvv"
+													placeholder="CVV">
+											</div>
+										</div>
+										<input type="hidden" th:id="id" name="id"
+											th:value="${pedidoInfo.id}" />
+										<hr>
+										<div class="divider d-flex align-items-center my-3"></div>
 
-						<div class="text-center pt-0 my-2">
+										<div class="text-center pt-0 my-2">
 
-							<button type="submit" class="btn hubobutton">CONFIRMAR
-								PAGO</button>
-						</div>
-						<div class="divider d-flex align-items-center my-3"></div>
+											<button type="submit" class="btn hubobutton">CONFIRMAR
+												PAGO</button>
+										</div>
+										<div class="divider d-flex align-items-center my-3"></div>
 
-					</form>
+									</form>
 								</div>
 							</div>
 						</div>
-						
+
 					</div>
-					
+
 				</div>
 
 			</div>
-							<hr>
-	<footer class="mt-auto">
-			<ul>
-				<li><a href="#"> Contacto:</a> carlos01ep@gmail.com</li>
-				<li><a href="#">Términos y condiciones</a></li>
-				<li><a href="#">Política de privacidad</a></li>
-			</ul>
-			<p>&copy; HUBO BURGER 2023</p>
-		</footer>
+			<hr>
+			<footer class="mt-auto">
+				<ul>
+					<li><a href="#"> Contacto:</a> carlos01ep@gmail.com</li>
+					<li><a href="#">Términos y condiciones</a></li>
+					<li><a href="#">Política de privacidad</a></li>
+				</ul>
+				<p>&copy; HUBO BURGER 2023</p>
+			</footer>
 		</section>
-	
+
 	</main>
 </body>
 </html>
