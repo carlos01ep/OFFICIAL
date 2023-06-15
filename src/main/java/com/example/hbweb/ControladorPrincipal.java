@@ -507,8 +507,12 @@ public class ControladorPrincipal implements ErrorController {
 	@Transactional
 	public String checkDetallePedidoPagar(@Valid PagoPedidoForm pagoPedidoForm, BindingResult bindingResult, Model modelo,
 			HttpSession session) {
-
-		pedidoDetalleRepositorio.setEstadoById("pagado", pagoPedidoForm.getId());
+		if (session.getAttribute("rol").equals("2")) {
+			pedidoDetalleRepositorio.setDireccionById(pagoPedidoForm.getDireccion(), pagoPedidoForm.getId());
+			pedidoDetalleRepositorio.setEstadoById("pagado", pagoPedidoForm.getId());
+		} else {
+			
+		}
 		return "redirect:/listapedido";
 	}
 

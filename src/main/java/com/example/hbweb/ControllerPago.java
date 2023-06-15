@@ -68,7 +68,14 @@ public class ControllerPago {
 	@Transactional
 	public String checkPagoPedido(@Valid PagoPedidoForm pagoPedidoForm, BindingResult bindingResult, Model modelo,
 			HttpSession session) {
+		if (session.getAttribute("rol").equals("2")) {
+			pedidoDetalleRepositorio.setDireccionById(pagoPedidoForm.getDireccion(), pagoPedidoForm.getId());
 			pedidoDetalleRepositorio.setEstadoById("pagado", pagoPedidoForm.getId());
+		} else {
+			
+		}
+		
 		return "redirect:/listapedido";
 	}
+
 }

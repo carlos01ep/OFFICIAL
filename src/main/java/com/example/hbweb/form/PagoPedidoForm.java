@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class PagoPedidoForm {
+	private String direccion;
+	
 	private int id;
 	
 //    @NotBlank(message = "El número de tarjeta es obligatorio")
@@ -22,13 +24,14 @@ public class PagoPedidoForm {
 		super();
 	}
 
-	public PagoPedidoForm(int id, String numeroTarjeta, String titularTarjeta, String fechaVencimiento, String codigoCVV) {
+	public PagoPedidoForm(int id, String numeroTarjeta, String titularTarjeta, String fechaVencimiento, String codigoCVV, String direccion) {
         super();
         this.id = id;
         this.numeroTarjeta = numeroTarjeta;
         this.titularTarjeta = titularTarjeta;
         this.fechaVencimiento = fechaVencimiento;
         this.codigoCVV = codigoCVV;
+        this.direccion = direccion;
     }
 
 	
@@ -71,6 +74,14 @@ public class PagoPedidoForm {
 
 	public void setCodigoCVV(String codigoCVV) {
 		this.codigoCVV = codigoCVV;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String dirección) {
+		this.direccion = dirección;
 	}
 
 	@Override

@@ -8,15 +8,20 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.example.hbweb.model.PedidoDetalle;
 
-
 import com.example.hbweb.model.Usuario;
 
-public interface PedidoDetalleRepositorio extends CrudRepository<PedidoDetalle, Integer>{
+public interface PedidoDetalleRepositorio extends CrudRepository<PedidoDetalle, Integer> {
 
 	PedidoDetalle findById(int id);
+
 	List<PedidoDetalle> findAllByUsuario(Usuario usuario);
-	 @Modifying
-	    @Query("UPDATE PedidoDetalle pd SET pd.estado = :estado WHERE pd.id = :id")
-	    void setEstadoById(String estado, int id);
-	
+
+	@Modifying
+	@Query("UPDATE PedidoDetalle pd SET pd.estado = :estado WHERE pd.id = :id")
+	void setEstadoById(String estado, int id);
+
+	@Modifying
+	@Query("UPDATE PedidoDetalle pd SET pd.direccion = :direccion WHERE pd.id = :id")
+	void setDireccionById(String direccion, int id);
+
 }

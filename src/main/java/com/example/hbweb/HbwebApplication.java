@@ -38,14 +38,14 @@ public class HbwebApplication {
 				rolRepositorio.save(rol4);
 				//cargamos en la BBDD usuarios por defecto
 				
-				Usuario usuario1 = new Usuario("admin01ep@gmail.com", "asdASD123", "12312312W", "admin1", "apellidoAdmin", "123123123",
+				Usuario usuario1 = new Usuario("admin01ep@gmail.com", "asdASD123", "12312312W", "admin_1", "apellidoAdmin", "123123123",
 						rol1);
-				Usuario usuario2 = new Usuario("Usuario01ep@gmail.com", "asdASD123", "12312312W", "usuario1", "apellidoUsuario", "123123123",
+				Usuario usuario2 = new Usuario("Usuario01ep@gmail.com", "asdASD123", "12312312W", "usuario_1", "apellidoUsuario", "123123123",
 						rol2);
-				Usuario usuario3 = new Usuario("ddd01ep@gmail.com", "asdASD123", "12312312W", "admin1", "apellidoAdmin", "123123123",
-						rol4);
-				Usuario usuario4 = new Usuario("uuu01ep@gmail.com", "asdASD123", "12312312W", "usuario1", "apellidoUsuario", "123123123",
+				Usuario usuario3 = new Usuario("dependiente01ep@gmail.com", "asdASD123", "12312312W", "dependiente_1", "apellidoDependiente", "123123123",
 						rol3);
+				Usuario usuario4 = new Usuario("delivery01ep@gmail.com", "asdASD123", "12312312W", "delivery_1", "apellidoDelivery", "123123123",
+						rol4);
 				
 				usuarioRepositorio.save(usuario1);
 				usuarioRepositorio.save(usuario2);

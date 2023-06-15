@@ -173,51 +173,43 @@ input[type="checkbox"]:checked, input[type="checkbox"]:not(:checked) {
 					th:object="${PagoPedidoForm}" method="post">
 					<div class="container-fluid h-custom">
 						<div class="row d-flex justify-content-center align-items-center">
-							<!-- image -->
+							
 							<div class="col-md-8 col-lg-8 col-xl-7 bg-light align-self-start">
-								<div class="divider d-flex align-items-center mt-4">
-									<p class="text-center fw-bold mx-3 mb-0">PAGO CON TARJETA
-										DE CRÉDITO</p>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<label for="cardholderName" class="form-label">Nombre
-											del titular de la tarjeta</label> <input type="text"
-											class="form-control" id="cardholderName"
-											name="cardholderName" placeholder="Nombre del titular">
-									</div>
-									<div class="col-md-6">
-										<label for="cardNumber" class="form-label">Número de
-											tarjeta</label> <input type="text" class="form-control"
-											id="cardNumber" name="cardNumber"
-											placeholder="Número de tarjeta">
-									</div>
-									<div class="col-md-6">
-										<label for="expirationDate" class="form-label">Fecha
-											de vencimiento</label> <input type="text" class="form-control"
-											id="expirationDate" name="expirationDate" placeholder="MM/AA">
-									</div>
-									<div class="col-md-6">
-										<label for="cvv" class="form-label">CVV</label> <input
-											type="text" class="form-control" id="cvv" name="cvv"
-											placeholder="CVV">
-									</div>
-								</div>
-								<hr>
-																<!-- Mostrar el mensaje de error genérico -->
-								<div class="text-danger" th:if="${session.containsKey('error')}"
-									th:text="${error}"></div>
+	<div class="divider d-flex align-items-center mt-4">
+		<p class="text-center fw-bold mx-3 mb-0">PAGO CON TARJETA DE CRÉDITO</p>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<label for="cardholderName" class="form-label">Nombre del titular de la tarjeta</label>
+			<input type="text" class="form-control" id="cardholderName" name="cardholderName" placeholder="Nombre del titular">
+		</div>
+		<div class="col-md-6">
+			<label for="cardNumber" class="form-label">Número de tarjeta</label>
+			<input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Número de tarjeta">
+		</div>
+		<div class="col-md-6">
+			<label for="expirationDate" class="form-label">Fecha de vencimiento</label>
+			<input type="text" class="form-control" id="expirationDate" name="expirationDate" placeholder="MM/AA">
+		</div>
+		<div class="col-md-6">
+			<label for="cvv" class="form-label">CVV</label>
+			<input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV">
+		</div>
+		<div class="col-md-12">
+			<label for="shippingAddress" class="form-label">Dirección de envío</label>
+			<input type="text" class="form-control" th:id="direccion" th:name="direccion" placeholder="Dirección de envío">
+		</div>
+	</div>
+	<hr>
+	<!-- Mostrar el mensaje de error genérico -->
+	<div class="text-danger" th:if="${session.containsKey('error')}" th:text="${error}"></div>
+	<div class="divider d-flex align-items-center my-3"></div>
+	<div class="text-center pt-0 my-2">
+		<button type="submit" class="btn hubobutton">CONFIRMAR PAGO</button>
+	</div>
+	<div class="divider d-flex align-items-center my-3"></div>
+</div>
 
-
-								<div class="divider d-flex align-items-center my-3"></div>
-
-								<div class="text-center pt-0 my-2">
-
-									<button type="submit" class="btn hubobutton">CONFIRMAR
-										PAGO</button>
-								</div>
-								<div class="divider d-flex align-items-center my-3"></div>
-							</div>
 
 							<div
 								class="col-md-8 col-lg-8 col-xl-4 mx-4 bg-light align-self-start">

@@ -19,6 +19,8 @@ public class PedidoDetalle {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
+	private String HoraPrevistaDeLLegada;
+	private String direccion;
 	private String estado;
 	private Double total;
 	private Double importePagado;
@@ -44,6 +46,8 @@ public class PedidoDetalle {
 
 	public PedidoDetalle(Usuario usuario, Double total) {
 		super();
+		this.HoraPrevistaDeLLegada = null;
+		this.direccion = null;
 		this.usuarioDelivery = null;
 		this.usuario = usuario;
 		this.nombre = "sin definir";
@@ -53,6 +57,32 @@ public class PedidoDetalle {
 		this.total = total;
 		this.importePagado = 0.0;
 		this.listaPedido = new ArrayList<>();
+	}
+	
+	
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Usuario getUsuarioDelivery() {
+		return usuarioDelivery;
+	}
+
+	public void setUsuarioDelivery(Usuario usuarioDelivery) {
+		this.usuarioDelivery = usuarioDelivery;
 	}
 
 	public Integer getId() {
@@ -158,6 +188,14 @@ public class PedidoDetalle {
 
 	public void setDescuento(Double descuento) {
 		this.descuento = descuento;
+	}
+
+	public String getHoraPrevistaDeLLegada() {
+		return HoraPrevistaDeLLegada;
+	}
+
+	public void setHoraPrevistaDeLLegada(String horaPrevistaDeLLegada) {
+		HoraPrevistaDeLLegada = horaPrevistaDeLLegada;
 	}
 	
 	
