@@ -19,7 +19,7 @@ public class PedidoDetalle {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
-	private String HoraPrevistaDeLLegada;
+	private String horaPrevistaDeLlegada;
 	private String direccion;
 	private String estado;
 	private Double total;
@@ -29,6 +29,11 @@ public class PedidoDetalle {
 	@ManyToOne
 	@JoinColumn(name = "usuario_pedido")
 	private Usuario usuario;
+	
+	@ManyToOne
+	@JoinColumn(name = "usuario_empleado")
+	private Usuario usuarioEmpleado;
+	
 	@ManyToOne
 	@JoinColumn(name = "usuario_delivery")
 	private Usuario usuarioDelivery;
@@ -46,8 +51,9 @@ public class PedidoDetalle {
 
 	public PedidoDetalle(Usuario usuario, Double total) {
 		super();
-		this.HoraPrevistaDeLLegada = null;
+		this.horaPrevistaDeLlegada = null;
 		this.direccion = null;
+		this.usuarioEmpleado = null;
 		this.usuarioDelivery = null;
 		this.usuario = usuario;
 		this.nombre = "sin definir";
@@ -60,6 +66,16 @@ public class PedidoDetalle {
 	}
 	
 	
+
+	
+	
+	public Usuario getUsuarioEmpleado() {
+		return usuarioEmpleado;
+	}
+
+	public void setUsuarioEmpleado(Usuario usuarioEmpleado) {
+		this.usuarioEmpleado = usuarioEmpleado;
+	}
 
 	public String getDireccion() {
 		return direccion;
@@ -190,13 +206,15 @@ public class PedidoDetalle {
 		this.descuento = descuento;
 	}
 
-	public String getHoraPrevistaDeLLegada() {
-		return HoraPrevistaDeLLegada;
+	public String getHoraPrevistaDeLlegada() {
+		return horaPrevistaDeLlegada;
 	}
 
-	public void setHoraPrevistaDeLLegada(String horaPrevistaDeLLegada) {
-		HoraPrevistaDeLLegada = horaPrevistaDeLLegada;
+	public void setHoraPrevistaDeLlegada(String horaPrevistaDeLlegada) {
+		this.horaPrevistaDeLlegada = horaPrevistaDeLlegada;
 	}
+
+
 	
 	
 	

@@ -19,7 +19,7 @@ import com.example.hbweb.form.BuscarProducto;
 import com.example.hbweb.form.LoginForm;
 import com.example.hbweb.form.NuevoPedidoForm;
 import com.example.hbweb.form.NuevoPedidoFormDependiente;
-import com.example.hbweb.form.PagoPedidoForm;
+import com.example.hbweb.form.DetallePedidoForm;
 import com.example.hbweb.form.ProductoForm;
 import com.example.hbweb.form.RegistroForm;
 import com.example.hbweb.model.PedidoDetalle;
@@ -66,7 +66,7 @@ public class ControllerPago {
 
 	@PostMapping(path = "/pagopedido")
 	@Transactional
-	public String checkPagoPedido(@Valid PagoPedidoForm pagoPedidoForm, BindingResult bindingResult, Model modelo,
+	public String checkPagoPedido(@Valid DetallePedidoForm pagoPedidoForm, BindingResult bindingResult, Model modelo,
 			HttpSession session) {
 		if (session.getAttribute("rol").equals("2")) {
 			pedidoDetalleRepositorio.setDireccionById(pagoPedidoForm.getDireccion(), pagoPedidoForm.getId());

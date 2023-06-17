@@ -131,14 +131,6 @@ public class ControllerDependiente {
 		    }
 
 		    
-		    System.out.println("Esto es lo que llega del formulario (ID productos pares): " + listaProductosByIdPares);
-		    System.out.println("Esto es lo que llega del formulario (ID productos impares): " + listaProductosByIdImpares);
-		    System.out.println("Esto es lo que llega del formulario (cantidades): " + listaCantidades);
-		    System.out.println("Esto es lo que llega del formulario (cambio): " + cambio);
-		   
-		    System.out.println("Esto es lo que llega del formulario (total): " + total);
-		    System.out.println("Esto es lo que llega del formulario (importePagado): " + importePagado);
-		    
 		    // Filtrar las cantidades y eliminar vacíos o ceros
 		    List<Integer> cantidadesSeleccionadas = new ArrayList<>();
 		    for (String cantidad : listaCantidades) {
@@ -200,7 +192,7 @@ public class ControllerDependiente {
 				
 		    	 return "/pagopedido";
 		    }else{
-		    	 return "redirect:/listapedido";
+		    	 return "redirect:/detallepedido/" + nuevoPedidoDetalle2.getId();
 		    }
 		   
 		}

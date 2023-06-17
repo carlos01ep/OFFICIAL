@@ -28,6 +28,8 @@ public class Usuario {
 	private List<Producto> listaProductos;
 	@OneToMany(mappedBy = "usuario")
 	private List<PedidoDetalle> listaPedidoDetalle;
+	@OneToMany(mappedBy = "usuarioEmpleado")
+	private List<PedidoDetalle> listaPedidoDetalledEmpleado;
 	@OneToMany(mappedBy = "usuarioDelivery")
 	private List<PedidoDetalle> listaPedidoDetalledDelivery;
 
@@ -125,6 +127,16 @@ public class Usuario {
 
 	public void setListaPedidoDetalledDelivery(List<PedidoDetalle> listaPedidoDetalledDelivery) {
 		this.listaPedidoDetalledDelivery = listaPedidoDetalledDelivery;
+	}
+
+	
+	
+	public List<PedidoDetalle> getListaPedidoDetalledEmpleado() {
+		return listaPedidoDetalledEmpleado;
+	}
+
+	public void setListaPedidoDetalledEmpleado(List<PedidoDetalle> listaPedidoDetalledEmpleado) {
+		this.listaPedidoDetalledEmpleado = listaPedidoDetalledEmpleado;
 	}
 
 	@Override

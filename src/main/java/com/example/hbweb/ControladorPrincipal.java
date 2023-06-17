@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.hbweb.form.BuscarProducto;
 import com.example.hbweb.form.LoginForm;
 import com.example.hbweb.form.NuevoPedidoForm;
-import com.example.hbweb.form.PagoPedidoForm;
+import com.example.hbweb.form.DetallePedidoForm;
 import com.example.hbweb.form.ProductoForm;
 import com.example.hbweb.form.RegistroForm;
 import com.example.hbweb.model.PedidoDetalle;
 import com.example.hbweb.model.Pedido;
 import com.example.hbweb.model.Producto;
+import com.example.hbweb.model.Rol;
 import com.example.hbweb.model.Usuario;
 import com.example.hbweb.repos.PedidoDetalleRepositorio;
 import com.example.hbweb.repos.PedidoRepositorio;
@@ -146,6 +147,9 @@ public class ControladorPrincipal implements ErrorController {
 				} else if (loginUsuario.getRol().getTipo() == 3) {
 					session.setAttribute("rol_usuario", "usuariodependiente");
 					return "redirect:/homedependiente";
+				} else if (loginUsuario.getRol().getTipo() == 4) {
+					session.setAttribute("rol_usuario", "usuariodelivery");
+					return "redirect:/homedelivery";
 
 				} else {
 					return "redirect:/home";
@@ -356,7 +360,8 @@ public class ControladorPrincipal implements ErrorController {
 	@GetMapping("/detalleproducto/{id}")
 	public String verDetalleProducto(@PathVariable String id, Model model, HttpSession session, LoginForm loginForm) {
 		if (session != null) {
-			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2")|| session.getAttribute("rol").equals("3")) {
+			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2")
+					|| session.getAttribute("rol").equals("3")) {
 				Producto producto = productoRepositorio.findById(Integer.parseInt(id));
 
 				model.addAttribute("producto", producto);
@@ -427,7 +432,7 @@ public class ControladorPrincipal implements ErrorController {
 		System.out.println("Esto es lo que llega del formulario:" + cantidadesSeleccionadas);
 
 		Usuario usuarioPedido = usuarioRepositorio.findByEmail((String) session.getAttribute("usuario"));
-		PedidoDetalle nuevoPedidoDetalle = new PedidoDetalle(usuarioPedido,0.0);
+		PedidoDetalle nuevoPedidoDetalle = new PedidoDetalle(usuarioPedido, 0.0);
 		pedidoDetalleRepositorio.save(nuevoPedidoDetalle);
 		int posCant = 0;
 		for (String idProducto : listaProductosById) {
@@ -456,42 +461,75 @@ public class ControladorPrincipal implements ErrorController {
 	// lista de pedidos
 	@GetMapping("/listapedido")
 	public String showListaPedidos(Model modelo, HttpSession session, LoginForm loginForm) {
-	    if (session != null) {
-	        String rol = (String) session.getAttribute("rol");
-	        String email = (String) session.getAttribute("usuario");
-	        List<PedidoDetalle> listaConsulta = new ArrayList<>();
+		if (session != null) {
+			String rol = (String) session.getAttribute("rol");
+			String email = (String) session.getAttribute("usuario");
+			List<PedidoDetalle> listaConsulta = new ArrayList<>();
+			Usuario usuarioLoged = usuarioRepositorio.findByEmail(email);
+			
 
-	        if (rol.equals("1")) {
-	            listaConsulta = (List<PedidoDetalle>) pedidoDetalleRepositorio.findAll();
-	        } else if (rol.equals("2") || rol.equals("3") || rol.equals("4")) {
-	        	Usuario usuarioLoged = usuarioRepositorio.findByEmail(email);
-	            listaConsulta = (List<PedidoDetalle>) pedidoDetalleRepositorio.findAllByUsuario(usuarioLoged);
-	        } else {
-	            session.setAttribute("rol", "");
-	            session.invalidate();
-	            return "/login";
-	        }
+			switch (rol) {
+			case "1":
+				listaConsulta = (List<PedidoDetalle>) pedidoDetalleRepositorio.findAll();
+				break;
+			case "2":
+				listaConsulta = (List<PedidoDetalle>) pedidoDetalleRepositorio.findAllByUsuario(usuarioLoged);
+				break;
+			case "3":
+				listaConsulta = (List<PedidoDetalle>) pedidoDetalleRepositorio
+						.findAllByUsuarioAndEstadoPagadoAndEmpleado(usuarioLoged);
+				break;
+			case "4":
+				listaConsulta = (List<PedidoDetalle>) pedidoDetalleRepositorio.findAllByUsuarioDelivery(usuarioLoged);
+				break;
+			default:
+				session.setAttribute("rol", "");
+				session.invalidate();
+				return "/login";
+			}
 
-	        modelo.addAttribute("listaConsulta", listaConsulta);
-	        return "/listapedido";
-	    } else {
-	        return "/login";
-	    }
+			modelo.addAttribute("listaConsulta", listaConsulta);
+			return "/listapedido";
+		} else {
+			return "/login";
+		}
 	}
+
 	// Detalle de pedido
 	@GetMapping("/detallepedido/{id}")
-	public String verDetallePedido(PagoPedidoForm pagoPedidoForm, @PathVariable String id, Model modelo, HttpSession session, LoginForm loginForm) {
+	public String verDetallePedido(DetallePedidoForm pagoPedidoForm, @PathVariable String id, Model modelo,
+			HttpSession session, LoginForm loginForm) {
 		if (session != null) {
-			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2") || session.getAttribute("rol").equals("3") || session.getAttribute("rol").equals("4")) {
-				Iterable<Object[]> itConsulta = pedidioRepositorio.listaDetalleByPedidoDetalleQuerry(Integer.parseInt(id));
+			if (session.getAttribute("rol").equals("1") || session.getAttribute("rol").equals("2")
+					|| session.getAttribute("rol").equals("3") || session.getAttribute("rol").equals("4")) {
+				Iterable<Object[]> itConsulta = pedidioRepositorio
+						.listaDetalleByPedidoDetalleQuerry(Integer.parseInt(id));
 				List<Object[]> listaConsulta = new ArrayList<Object[]>();
 				itConsulta.forEach(listaConsulta::add);
 				modelo.addAttribute("listaConsulta", listaConsulta);
 
+				String email = (String) session.getAttribute("usuario");
+
 				PedidoDetalle pedidoInfo = pedidoDetalleRepositorio.findById(Integer.parseInt(id));
+
+				// controlar que asignar delivery solo lo pueda hacer el usuario que prepara el
+				// pedido
+
 				modelo.addAttribute("pedidoInfo", pedidoInfo);
-				
+
+				Rol rolDelivery = rolRepositorio.findByTipo(4);
+				List<Usuario> usuariosRol4 = (List<Usuario>) usuarioRepositorio.findAllByRol(rolDelivery);
+
+				modelo.addAttribute("usuariosRol4", usuariosRol4);
+
 				modelo.addAttribute("id", id);
+				if (session.getAttribute("rol").equals("3")) {
+					if (pedidoInfo.getUsuarioEmpleado() == null) {
+						return "/detallepedido";
+					} else if (!pedidoInfo.getUsuarioEmpleado().getEmail().equals(email)) {
+						return "redirect:/listapedido";
+					}
+				}
 				return "/detallepedido";
 			} else {
 				session.setAttribute("rol", "");
@@ -501,17 +539,69 @@ public class ControladorPrincipal implements ErrorController {
 		} else {
 			return "/login";
 		}
-
 	}
+
 	@PostMapping("/detallepedido/{id}")
 	@Transactional
-	public String checkDetallePedidoPagar(@Valid PagoPedidoForm pagoPedidoForm, BindingResult bindingResult, Model modelo,
-			HttpSession session) {
+	public String checkDetallePedidoPagar(@Valid DetallePedidoForm detallePedidoForm, @PathVariable String id,
+			BindingResult bindingResult, Model modelo, HttpSession session) {
+
+		String rol = (String) session.getAttribute("rol");
+
+		switch (rol) {
+		case "1":
+
+			break;
+		case "2":
+			if (detallePedidoForm.getDireccion() != "") {
+				pedidoDetalleRepositorio.setDireccionById(detallePedidoForm.getDireccion(), detallePedidoForm.getId());
+				pedidoDetalleRepositorio.setEstadoById("pagado", detallePedidoForm.getId());
+			}
+			break;
+		case "3":
+			if (detallePedidoForm.getEstado() != null && !detallePedidoForm.getEstado().isEmpty()) {
+				pedidoDetalleRepositorio.setEstadoById(detallePedidoForm.getEstado(), detallePedidoForm.getId());
+				String emailUsuario = (String) session.getAttribute("usuario");
+				Usuario usuarioEmpleado = usuarioRepositorio.findByEmail(emailUsuario);
+				pedidoDetalleRepositorio.setUsuarioEmpleadoById(usuarioEmpleado, detallePedidoForm.getId());
+				return "redirect:/detallepedido/" + detallePedidoForm.getId();
+
+			} else if (detallePedidoForm.getDelivery() != null && !detallePedidoForm.getDelivery().isEmpty()) {
+				pedidoDetalleRepositorio.setEstadoById("listo", detallePedidoForm.getId());
+				Usuario usuarioDelivery = usuarioRepositorio.findByEmail(detallePedidoForm.getDelivery());
+				pedidoDetalleRepositorio.setUsuarioDeliveryById(usuarioDelivery, detallePedidoForm.getId());
+				return "redirect:/detallepedido/" + detallePedidoForm.getId();
+			} else {
+
+			}
+			break;
+		case "4":
+
+			break;
+		default:
+			session.setAttribute("rol", "");
+			session.invalidate();
+			return "/login";
+		}
+
 		if (session.getAttribute("rol").equals("2")) {
-			pedidoDetalleRepositorio.setDireccionById(pagoPedidoForm.getDireccion(), pagoPedidoForm.getId());
-			pedidoDetalleRepositorio.setEstadoById("pagado", pagoPedidoForm.getId());
+			pedidoDetalleRepositorio.setDireccionById(detallePedidoForm.getDireccion(), detallePedidoForm.getId());
+			pedidoDetalleRepositorio.setEstadoById("pagado", detallePedidoForm.getId());
+		} else if (session.getAttribute("rol").equals("3")) {
+			if (detallePedidoForm.getEstado() != "") {
+				try {
+					pedidoDetalleRepositorio.setEstadoById(detallePedidoForm.getEstado(), detallePedidoForm.getId());
+					String emailUsuario = (String) session.getAttribute("usuario");
+					Usuario usuarioEmpleado = usuarioRepositorio.findByEmail(emailUsuario);
+					pedidoDetalleRepositorio.setUsuarioEmpleadoById(usuarioEmpleado, detallePedidoForm.getId());
+					return "redirect:/listapedido";
+				} catch (Exception e) {
+					return "redirect:/error";
+				}
+			}
+
 		} else {
-			
+
 		}
 		return "redirect:/listapedido";
 	}
@@ -597,7 +687,7 @@ public class ControladorPrincipal implements ErrorController {
 	}
 
 	// error
-	private static final String PATH = "/error";
+//	private static final String PATH = "/error";
 
 	@GetMapping("/error")
 	public String handleError() {

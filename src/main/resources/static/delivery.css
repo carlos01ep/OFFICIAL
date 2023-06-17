@@ -1,0 +1,42 @@
+/* Para pantallas de tamaño medio (tablet) */
+@media screen and (max-width: 1023px) {
+	.collapse.show {
+		display: block !important;
+	}
+	
+	.collapse {
+		display: none !important;
+	}
+	
+	.table thead tr th,
+	.table tfoot tr th,
+	.table tbody tr td {
+		display: block;
+		width: 100%;
+	}
+	
+	.table tbody {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.table tbody tr {
+		flex-basis: auto;
+	}
+	
+	.table tbody tr td {
+		text-align: left;
+		padding: 10px;
+		border-bottom: 1px solid #dee2e6;
+	}
+	
+	.table tfoot tr {
+		flex-basis: auto;
+	}
+	
+	.table tfoot tr td {
+		text-align: left;
+		padding: 10px;
+		border-top: 1px solid #dee2e6;
+	}
+}

@@ -29,7 +29,7 @@
 				class="navbar-brand" th:href="@{/homedependiente}"
 				th:if="${session.rol_usuario} == 'usuariodependiente'">Hubo
 				Burger</a> <a class="navbar-brand" th:href="@{/homedelivery}"
-				th:if="${session.rol_usuario} == 'delivery'">Hubo Burger</a>
+				th:if="${session.rol_usuario} == 'usuariodelivery'">Hubo Burger</a>
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -57,7 +57,8 @@
 						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
 					<li class="nav-item"
 						th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente'}"><a
-						class="nav-link" th:href="@{/nuevopedidodependiente}">Nuevo Pedido</a></li>
+						class="nav-link" th:href="@{/nuevopedidodependiente}">Nuevo
+							Pedido</a></li>
 					<li class="nav-item"
 						th:if="${session.rol_usuario == 'usuario' || session.rol_usuario == 'usuariodependiente' || session.rol_usuario == 'usuariodelivery'}"><a
 						class="nav-link" th:href="@{/listapedido}">Lista de Pedidos</a></li>
@@ -85,8 +86,8 @@
 			</div>
 			<div class="jumbotron ">
 				<div
-					class="container my-4 d-flex justify-content-center align-items-center">
-					<div class="table-responsive">
+					class="container  my-4 d-flex justify-content-center align-items-center ">
+					<div class="table-responsive align-self-start">
 						<table
 							class="table w-100 my-0 p-0 pt-3 table-bordered table-hover table-striped "
 							style="opacity: 0.8;">
@@ -116,20 +117,24 @@
 						</table>
 
 					</div>
+
 				</div>
 
 			</div>
-			<footer class="mt-auto">
-				<ul>
-					<li><a href="#"> Contacto:</a> carlos01ep@gmail.com</li>
-					<li><a href="#">Términos y condiciones</a></li>
-					<li><a href="#">Política de privacidad</a></li>
-				</ul>
-				<p>&copy; HUBO BURGER 2023</p>
-			</footer>
+			<section>
+				<footer class="mt-auto">
+					<ul>
+						<li><a href="#"> Contacto:</a> carlos01ep@gmail.com</li>
+						<li><a href="#">Términos y condiciones</a></li>
+						<li><a href="#">Política de privacidad</a></li>
+					</ul>
+					<p>&copy; HUBO BURGER 2023</p>
+				</footer>
+			</section>
 		</section>
 
 	</main>
 
 </body>
+
 </html>

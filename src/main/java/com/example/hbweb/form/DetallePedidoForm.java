@@ -3,12 +3,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public class PagoPedidoForm {
+public class DetallePedidoForm {
+	private String estado;
 	private String direccion;
-	
 	private int id;
 	
-//    @NotBlank(message = "El número de tarjeta es obligatorio")
+
+
+	//    @NotBlank(message = "El número de tarjeta es obligatorio")
     private String numeroTarjeta;
 
 //    @NotBlank(message = "El titular de la tarjeta es obligatorio")
@@ -19,23 +21,48 @@ public class PagoPedidoForm {
 
 //    @Size(min = 3, max = 4, message = "El código CVV debe tener entre 3 y 4 dígitos")
     private String codigoCVV;
+    
+    private String delivery;
 
-	public PagoPedidoForm() {
+	public DetallePedidoForm() {
 		super();
 	}
 
-	public PagoPedidoForm(int id, String numeroTarjeta, String titularTarjeta, String fechaVencimiento, String codigoCVV, String direccion) {
+	public DetallePedidoForm(int id, String numeroTarjeta, String titularTarjeta, 
+			String fechaVencimiento, String codigoCVV, String direccion, String delivery, String estado) {
         super();
         this.id = id;
+        this.estado = estado;
+        this.delivery = delivery;
         this.numeroTarjeta = numeroTarjeta;
         this.titularTarjeta = titularTarjeta;
         this.fechaVencimiento = fechaVencimiento;
         this.codigoCVV = codigoCVV;
         this.direccion = direccion;
     }
+	
+	public DetallePedidoForm(int id,  String estado) {
+        super();
+        this.id = id;
+        this.estado = estado;
+    }
 
-	
-	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(String delivery) {
+		this.delivery = delivery;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -90,6 +117,4 @@ public class PagoPedidoForm {
 				+ ", fechaVencimiento=" + fechaVencimiento + ", codigoCVV=" + codigoCVV + "]";
 	}
 
-	
-   
 }

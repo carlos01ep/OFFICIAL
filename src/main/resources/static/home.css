@@ -74,7 +74,7 @@ main {
 	font-size: 60 px;
 	display: inline-block;
 	font-weight: 500;
-	text-shadow: 2px 2px 3px #868686ff;
+	text-shadow: 1px 1px 2px #4D5656;
 }
 .hubobutton:hover {
 	background-color: #868686ff; /* grey */

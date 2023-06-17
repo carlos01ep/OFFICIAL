@@ -143,7 +143,7 @@
 				</div>
 				<div
 					class="container my-8 d-flex justify-content-center align-items-center"
-					th:if="${pedidoInfo.estado == 'pendiente de pago'}">
+					th:if="${pedidoInfo.estado == 'pendiente de pago' && session.rol_usuario == 'usuario'}">
 					<div id="accordion ">
 						<div class="card">
 							<div class="card-header" id="headingOne">
@@ -157,7 +157,7 @@
 								aria-labelledby="headingOne" data-bs-parent="#accordion">
 								<div class="card-body">
 									<form action="#" th:action="@{detallepedido}"
-										th:object="${PagoPedidoForm}" method="post">
+										th:object="${DetallePedidoForm}" method="post">
 										<div class="divider d-flex align-items-center my-4">
 											<p class="text-center fw-bold mx-3 mb-0">PAGO CON TARJETA
 												DE CRÉDITO</p>
@@ -214,19 +214,217 @@
 					</div>
 
 				</div>
+				<div
+					class="container my-8 d-flex justify-content-center align-items-center"
+					th:if="${(pedidoInfo.estado == 'abierto' || pedidoInfo.estado == 'pagado') && pedidoInfo.usuarioEmpleado == null && session.rol_usuario == 'usuariodependiente'}">
+					<form action="#" th:action="@{detallepedido}"
+						th:object="${DetallePedidoForm}" method="post">
+						<div id="accordion">
+
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<input type="hidden" th:id="estado" name="estado"
+										th:value="preparando" /> <input type="hidden" th:id="id"
+										name="id" th:value="${pedidoInfo.id}" />
+									<h5 class="mb-0">
+										<button class="btn btn-link" data-bs-toggle="collapse"
+											data-bs-target="#collapseOne" aria-expanded="true"
+											aria-controls="collapseOne">PREPARAR</button>
+									</h5>
+
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div
+					class="container my-8 d-flex justify-content-center align-items-center"
+					th:if="${pedidoInfo.estado == 'preparando' && pedidoInfo.direccion == null && session.rol_usuario == 'usuariodependiente'}">
+					<form action="#" th:action="@{detallepedido}"
+						th:object="${DetallePedidoForm}" method="post">
+						<div id="accordion">
+
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<input type="hidden" th:id="estado" name="estado"
+										th:value="finalizado" /> <input type="hidden" th:id="id"
+										name="id" th:value="${pedidoInfo.id}" />
+									<h5 class="mb-0">
+										<button class="btn btn-link" data-bs-toggle="collapse"
+											data-bs-target="#collapseOne" aria-expanded="true"
+											aria-controls="collapseOne">FINALIZAR</button>
+									</h5>
+
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div
+					class="container my-8 d-flex justify-content-center align-items-center"
+					th:if="${pedidoInfo.estado == 'preparando' && pedidoInfo.direccion != null && session.rol_usuario == 'usuariodependiente'}">
+					<div id="accordion">
+
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h5 class="mb-0">
+									<button class="btn btn-link" data-bs-toggle="collapse"
+										data-bs-target="#collapseOne" aria-expanded="true"
+										aria-controls="collapseOne">ASIGNAR DELIVERY</button>
+								</h5>
+							</div>
+							<div id="collapseOne" class="collapse"
+								aria-labelledby="headingOne" data-bs-parent="#accordion">
+								<form action="#" th:action="@{detallepedido}"
+									th:object="${DetallePedidoForm}" method="post">
+									<div class="card-body">
+
+										<div class="divider d-flex align-items-center my-4">
+											<p class="text-center fw-bold mx-3 mb-0">SELECCIONAR
+												DELIVERY</p>
+										</div>
+
+										<div class="row">
+											<div class="col-md-6">
+												<label for="delivery" class="form-label">Deliverys
+													disponibles:</label>
+											</div>
+											<div class="col-md-6">
+												<select class="form-select text-muted" id="delivery"
+													name="delivery" required="required">
+													<option disabled selected>Email</option>
+													<option th:each="usuario : ${usuariosRol4}"
+														th:value="${usuario.email}" th:text="${usuario.email}"></option>
+												</select>
+											</div>
+											<input type="hidden" th:id="id" name="id"
+												th:value="${pedidoInfo.id}" />
+										</div>
+									</div>
+									<input type="hidden" th:id="id" name="id"
+										th:value="${pedidoInfo.id}" />
+									<hr>
+									<div class="divider d-flex align-items-center my-3"></div>
+
+									<div class="text-center pt-0 my-2">
+
+										<button type="submit" class="btn hubobutton">ACEPTAR</button>
+									</div>
+									<div class="divider d-flex align-items-center my-3"></div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div
+					class="container my-8 d-flex justify-content-center align-items-center"
+					th:if="${pedidoInfo.estado == 'finalizado'}">
+
+					<div id="accordion">
+
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h5 class="mb-0">
+									<button class="btn btn-danger" data-bs-toggle="collapse"
+										data-bs-target="#collapseOne" aria-expanded="true"
+										aria-controls="collapseOne" disabled>FINALIZADO</button>
+								</h5>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div
+					class="container my-8 d-flex justify-content-center align-items-center"
+					th:if="${pedidoInfo.estado != 'finalizado' && session.rol_usuario == 'usuario'}">
+					<div id="accordion">
+
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h5 class="mb-0">
+									<button class="btn btn-link" data-bs-toggle="collapse"
+										data-bs-target="#collapseOne" aria-expanded="true"
+										aria-controls="collapseOne">SEGUIMIENTO DEL PEDIDO</button>
+								</h5>
+							</div>
+							<div id="collapseOne" class="collapse"
+								aria-labelledby="headingOne" data-bs-parent="#accordion">
+
+								<div class="card-body">
+
+									<div class="container">
+										<div class="row">
+											<div class="d-inline-block"
+												th:if="${pedidoInfo.estado == 'pagado'}">
+												<button class="btn btn-success" disabled>PAGADO</button>
+												<button class="btn btn-secondary  " style="opacity: 0.2;"
+													disabled>PREPARANDO</button>
+												<button class="btn btn-secondary  " style="opacity: 0.2;"
+													disabled>LISTO</button>
+												<button class="btn btn-secondary  " style="opacity: 0.2;"
+													disabled>EN CAMINO</button>
+											</div>
+											<div class="d-inline-block"
+												th:if="${pedidoInfo.estado == 'preparando'}">
+												<button class="btn btn-success" disabled>PAGADO</button>
+												<button class="btn btn-success" disabled>PREPARANDO</button>
+												<button class="btn btn-secondary  " style="opacity: 0.2;"
+													disabled>LISTO</button>
+												<button class="btn btn-secondary   " style="opacity: 0.2;"
+													disabled>EN CAMINO</button>
+											</div>
+											<div class="d-inline-block"
+												th:if="${pedidoInfo.estado == 'listo'}">
+												<button class="btn btn-success" disabled>PAGADO</button>
+												<button class="btn btn-success" disabled>PREPARANDO</button>
+												<button class="btn btn-success" disabled>LISTO</button>
+												<button class="btn btn-secondary   " style="opacity: 0.2;"
+													disabled>EN CAMINO</button>
+											</div>
+											<div class="d-inline-block"
+												th:if="${pedidoInfo.estado == 'en camino'}">
+												<button class="btn btn-success" disabled>PAGADO</button>
+												<button class="btn btn-success" disabled>PREPARANDO</button>
+												<button class="btn btn-success" disabled>LISTO</button>
+												<button class="btn btn-success" disabled>EN CAMINO</button>
+												<div class="container mt-2">
+													<label><span>Hora de llegada previsata:</span></label>
+													<button class="btn btn-primary"
+														th:text="${pedidoInfo.horaPrevistaDeLlegada}"></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
 
 			</div>
-			<hr>
-			<footer class="mt-auto">
-				<ul>
-					<li><a href="#"> Contacto:</a> carlos01ep@gmail.com</li>
-					<li><a href="#">Términos y condiciones</a></li>
-					<li><a href="#">Política de privacidad</a></li>
-				</ul>
-				<p>&copy; HUBO BURGER 2023</p>
-			</footer>
-		</section>
 
+
+
+
+
+
+			<hr>
+
+		</section>
+		<footer class="mt-auto">
+			<ul>
+				<li><a href="#">Contacto:</a> carlos01ep@gmail.com</li>
+				<li><a href="#">Términos y condiciones</a></li>
+				<li><a href="#">Política de privacidad</a></li>
+			</ul>
+			<p>&copy; HUBO BURGER 2023</p>
+		</footer>
 	</main>
 </body>
 </html>
